@@ -1,0 +1,30 @@
+hand: shadow
+suite_config: sim_shadow.yml
+grasp_types: all
+debug: false
+b_opt_process: false
+
+host: 0.0.0.0
+port: 8081
+
+max_grasps: 5
+scene_batch_size: 5
+spacing: 0.55
+pose_index: -1
+opt_progress: [0.0, 0.8, 1.0]
+
+# Initial object scale shown in the Web UI. Use all, a decimal value such as
+# 0.16, or a scene-token value such as scale016.
+object_scale: all
+
+# Recent grasp npy files are cached so scene navigation does not reload the same
+# records for metadata and rendering.
+grasp_data_cache_size: 64
+
+# Recent transformed object meshes are cached by scene path because one_scene
+# mode may render several grasp types for the same scene.
+object_mesh_cache_size: 256
+
+# Keep the Scene dropdown small for large runs. Use Scene index to jump outside
+# the nearby window.
+scene_dropdown_window_size: 200

@@ -1,0 +1,17 @@
+name: "demo"
+seed: 1
+device: "cuda:0"
+n_worker: 8
+
+defaults:
+  - _self_
+  - task: 
+
+task_name: ${hydra:runtime.choices.task}
+
+manip_cfg_file: sim_shadow/tabletop_full.yml
+
+output_path: ${oc.env:HUGS_OUTPUT_ROOT,src/curobo/content/assets/output}
+
+
+

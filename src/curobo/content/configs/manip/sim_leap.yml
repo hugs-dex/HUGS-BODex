@@ -1,0 +1,70 @@
+robot_name: leap
+
+scene_source:
+  # Minimum posed-and-scaled object height in meters. Leave null to disable
+  # height filtering; set per suite when low tabletop scenes should be skipped.
+  min_object_height: 0.018
+  object_height_record_file: tabletop_scene_object_heights.jsonl
+
+human_prior:
+  root:
+  total_budget: 40
+  min_type_budget: 0
+  max_type_budget: 20
+  # Per-scene grasp types with scores below this threshold receive zero budget.
+  score_threshold: 0.1
+  # K_t budgets are snapped to this resolution for coarser batches.
+  budget_resolution: 1
+  # Choices: ceil, round. round uses half-up nearest-multiple rounding.
+  budget_rounding_mode: ceil
+  target_batch_grasps: 1000
+  max_parallel_world: 1000
+  replacement: true
+  seed: 123
+  right_hand_index: 0
+  jitter:
+    enabled: false
+    translational_std_xyz: [0.0, 0.0, 0.0]
+    rotational_std_deg_xyz: [0.0, 0.0, 0.0]
+
+grasp_types:
+  1_right_two:
+    type_id: 1
+    manip_cfg_file: sim_leap/tabletop_two.yml
+    object_scale_list: [0.02, 0.03, 0.04]
+    robot_group: single_right
+    transfer_file: hand_pose_human_transfer/leap_hand.yml
+    transfer_links: [rh_palm_lower]
+    hand_indices: [0]
+  2_right_three:
+    type_id: 2
+    manip_cfg_file: sim_leap/tabletop_three.yml
+    object_scale_list: [0.05, 0.06]
+    robot_group: single_right
+    transfer_file: hand_pose_human_transfer/leap_hand.yml
+    transfer_links: [rh_palm_lower]
+    hand_indices: [0]
+  3_right_full:
+    type_id: 3
+    manip_cfg_file: sim_leap/tabletop_full.yml
+    object_scale_list: [0.08, 0.10, 0.12]
+    robot_group: single_right
+    transfer_file: hand_pose_human_transfer/leap_hand.yml
+    transfer_links: [rh_palm_lower]
+    hand_indices: [0]
+  4_both_three:
+    type_id: 4
+    manip_cfg_file: sim_dual_dummy_arm_leap/tabletop_three.yml
+    object_scale_list: [0.12, 0.16, 0.20]
+    robot_group: dual_dummy_arm
+    transfer_file: hand_pose_human_transfer/dual_dummy_arm_leap.yml
+    transfer_links: [rh_palm_lower, lh_palm_lower]
+    hand_indices: [0, 1]
+  5_both_full:
+    type_id: 5
+    manip_cfg_file: sim_dual_dummy_arm_leap/tabletop_full.yml
+    object_scale_list: [0.16, 0.20, 0.24, 0.28]
+    robot_group: dual_dummy_arm
+    transfer_file: hand_pose_human_transfer/dual_dummy_arm_leap.yml
+    transfer_links: [rh_palm_lower, lh_palm_lower]
+    hand_indices: [0, 1]

@@ -1,0 +1,114 @@
+robot_name: shadow
+
+scene_source:
+  # Minimum posed-and-scaled object height in meters. Leave null to disable
+  # height filtering; set per suite when low tabletop scenes should be skipped.
+  min_object_height: 0.01
+  object_height_record_file: tabletop_scene_object_heights.jsonl
+
+human_prior:
+  root:
+  total_budget:
+  min_type_budget:
+  max_type_budget:
+  # Per-scene grasp types with scores below this threshold receive zero budget.
+  score_threshold:
+  # K_t budgets are snapped to this resolution for coarser batches.
+  budget_resolution:
+  # Choices: ceil, round. round uses half-up nearest-multiple rounding.
+  budget_rounding_mode:
+  target_batch_grasps:
+  max_parallel_world:
+  replacement:
+  seed:
+  right_hand_index:
+  jitter:
+    enabled:
+
+grasp_types:
+  1_right_two:
+    type_id: 1
+    manip_cfg_file: sim_shadow/tabletop_two.yml
+    object_scale_list:
+    robot_group: single_right
+    transfer_file: hand_pose_human_transfer/right_shadow_hand.yml
+    transfer_links: [rh_palm]
+    hand_indices: [0]
+    jitter:
+      # translational_bounds_xyz: [[-0.01, 0, -0.01], [0.01, 0.0, 0.01]]
+      # rotational_bounds_deg_xyz: [[-15, -15, -15], [15, 15, 15]]
+      # translational_bounds_xyz: [[-0.02, 0, -0.02], [0.02, 0.0, 0.02]]
+      # rotational_bounds_deg_xyz: [[-30, -30, -30], [30, 30, 30]]
+      # translational_bounds_xyz: [[-0.01, 0, -0.01], [0.01, 0.0, 0.01]]
+      # rotational_bounds_deg_xyz: [[-15, -15, -15], [15, 15, 15]]
+      translational_bounds_xyz: [[-0.01, 0, -0.01], [0.01, 0.0, 0.01]]
+      rotational_bounds_deg_xyz: [[-30, -30, -15], [30, 30, 15]]
+  2_right_three:
+    type_id: 2
+    manip_cfg_file: sim_shadow/tabletop_three.yml
+    object_scale_list:
+    robot_group: single_right
+    transfer_file: hand_pose_human_transfer/right_shadow_hand.yml
+    transfer_links: [rh_palm]
+    hand_indices: [0]
+    jitter:
+      # translational_bounds_xyz:  [[-0.01, 0, -0.01], [0.01, 0.0, 0.01]]
+      # rotational_bounds_deg_xyz: [[-15, -15, -15], [15, 15, 15]]
+      # translational_bounds_xyz: [[-0.02, 0, -0.02], [0.02, 0.0, 0.02]]
+      # rotational_bounds_deg_xyz: [[-30, -30, -30], [30, 30, 30]]
+      # translational_bounds_xyz:  [[-0.01, 0, -0.01], [0.01, 0.0, 0.01]]
+      # rotational_bounds_deg_xyz: [[-15, -15, -15], [15, 15, 15]]
+      translational_bounds_xyz:  [[-0.01, 0, -0.01], [0.01, 0.0, 0.01]]
+      rotational_bounds_deg_xyz: [[-30, -30, -15], [30, 30, 15]]
+  3_right_full:
+    type_id: 3
+    manip_cfg_file: sim_shadow/tabletop_full.yml
+    object_scale_list:
+    robot_group: single_right
+    transfer_file: hand_pose_human_transfer/right_shadow_hand.yml
+    transfer_links: [rh_palm]
+    hand_indices: [0]
+    jitter:
+      # translational_bounds_xyz: [[-0.01, 0, -0.01], [0.01, 0.01, 0.01]]
+      # rotational_bounds_deg_xyz: [[-15, -15, -15], [15, 15, 15]]
+      # translational_bounds_xyz: [[-0.02, 0.05, -0.02], [0.02, 0.06, 0.02]]
+      # rotational_bounds_deg_xyz: [[-30, -30, -30], [30, 30, 30]]
+      # translational_bounds_xyz: [[-0.01, 0.05, -0.02], [0.01, 0.06, 0.02]]
+      # rotational_bounds_deg_xyz: [[-30, -15, -15], [30, 15, 15]]
+      # translational_bounds_xyz: [[-0.01, 0.00, -0.02], [0.01, 0.01, 0.02]]
+      # rotational_bounds_deg_xyz: [[-30, -15, -15], [30, 15, 15]]
+      translational_bounds_xyz: [[-0.01, 0.00, -0.02], [0.01, 0.01, 0.02]]
+      rotational_bounds_deg_xyz: [[-30, -30, -15], [30, 30, 15]]
+  4_both_three:
+    type_id: 4
+    manip_cfg_file: sim_dual_dummy_arm_shadow/tabletop_three.yml
+    object_scale_list:
+    robot_group: dual_dummy_arm
+    transfer_file: hand_pose_human_transfer/dual_dummy_arm_shadow.yaml
+    transfer_links: [rh_palm, lh_palm]
+    hand_indices: [0, 1]
+    jitter:
+      # translational_bounds_xyz: [[-0.01, 0.05, -0.01], [0.01, 0.06, 0.01]]
+      # translational_bounds_xyz: [[-0.01, 0.01, -0.01], [0.01, 0.02, 0.01]]
+      # rotational_bounds_deg_xyz:  [[-15, -15, -15], [15, 15, 15]]
+      # translational_bounds_xyz: [[-0.03, 0.05, -0.03], [0.03, 0.06, 0.03]]
+      # rotational_bounds_deg_xyz: [[-30, -30, -30], [30, 30, 30]]
+      translational_bounds_xyz: [[-0.01, 0.05, -0.02], [0.01, 0.06, 0.02]]
+      rotational_bounds_deg_xyz: [[-30, -30, -15], [30, 30, 15]]
+  5_both_full:
+    type_id: 5
+    manip_cfg_file: sim_dual_dummy_arm_shadow/tabletop_full.yml
+    object_scale_list:
+    robot_group: dual_dummy_arm
+    transfer_file: hand_pose_human_transfer/dual_dummy_arm_shadow.yaml
+    transfer_links: [rh_palm, lh_palm]
+    hand_indices: [0, 1]
+    jitter:
+      # translational_bounds_xyz: [[-0.01, 0.10, -0.01], [0.01, 0.11, 0.01]]
+      # rotational_bounds_deg_xyz:  [[-15, -15, -15], [15, 15, 15]]
+      # translational_bounds_xyz: [[-0.03, 0.10, -0.03], [0.03, 0.11, 0.03]]
+      # rotational_bounds_deg_xyz: [[-30, -30, -30], [30, 30, 30]]
+      # translational_bounds_xyz: [[-0.01, 0.10, -0.03], [0.01, 0.11, 0.03]]
+      # rotational_bounds_deg_xyz: [[-30, -15, -15], [30, 15, 15]]
+      translational_bounds_xyz: [[-0.01, 0.10, -0.03], [0.01, 0.11, 0.03]]
+      rotational_bounds_deg_xyz: [[-30, -30, -15], [30, 30, 15]]

@@ -1,0 +1,44 @@
+host: 0.0.0.0
+port: 8082
+
+# Suite config and the top-level Hydra ``name`` select the result directories.
+# Example:
+#   name=fig_draw_debug task.suite_config=sim_shadow.yml
+suite_config: sim_shadow.yml
+grasp_types: all
+
+# Randomly draw this many distinct DGN2k scenes per Viser batch.
+batch_size: 1
+
+# Hidden by default to keep the viewer focused on geometry. Set true to enable
+# scene labels and optional markdown caption text.
+show_text: false
+
+# Hidden by default because Viser's world axes can introduce visible text/axis
+# labels in the viewport.
+show_world_axes: false
+
+# Blank by default so the viewer has no visible text. Set to "Next Batch" if a
+# textual GUI button is preferred.
+next_button_label: " "
+
+# Requires show_text=true. Set true to show a markdown panel with scene ids,
+# type ids, and selected seed/prior indices.
+show_caption: false
+
+# Set to true to hide the 4_both_three grasp type from random batches.
+exclude_both_three: false
+
+# A negative seed_index randomly selects one robot seed for each rendered scene.
+# Non-negative values force the same seed index whenever it exists in a record.
+seed_index: -1
+
+# Number of object point-cloud points in the human-prior column.
+num_points: 1024
+
+# Layout spacing between the three columns and five rows.
+spacing_x: 0.62
+spacing_y: 0.42
+
+# MANO assets used to reconstruct the human-prior hand mesh.
+mano_root:

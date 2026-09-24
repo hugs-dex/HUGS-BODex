@@ -1,0 +1,8 @@
+debug: False
+
+# object_lst: ["core_bowl_3f56833e91054d2518e800f0d88f9019"]
+
+sample_lst: [0, 1, 2, 3]
+
+b_opt_process: False  # whether the data contains the whole optimization process
+opt_progress: [0.0, 0.8, 1.0]

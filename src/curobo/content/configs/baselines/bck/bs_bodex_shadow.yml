@@ -1,0 +1,24 @@
+name: bs_bodex_shadow
+baseline: bs_bodex
+robot_name: shadow
+description:
+
+requires:
+  task:
+    init_source: surface_sample
+    scene_source:
+      use_object_scale_list: true
+
+overrides:
+  suite:
+    grasp_types:
+      1_right_two:
+        object_scale_list: []
+      2_right_three:
+        object_scale_list: []
+      3_right_full:
+        object_scale_list: [0.02, 0.03, 0.04, 0.06, 0.08, 0.11, 0.13, 0.16, 0.19, 0.23, 0.26, 0.30]
+      4_both_three:
+        object_scale_list: []
+      5_both_full:
+        object_scale_list: []

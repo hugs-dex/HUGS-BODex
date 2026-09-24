@@ -1,0 +1,401 @@
+<?xml version="1.0" ?>
+<robot name="left_shadow_hand">
+   <link name="lh_forearm">
+      <visual name="forearm_0">
+         <origin xyz="-0.0006274281916165553 2.5023159453650283e-05 0.006174842104832059" rpy="1.2117729232060683 -1.5707754380241972 1.9125508984262103"/>
+         <geometry>
+            <mesh filename="stl/forearm_0.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+      <visual name="forearm_1">
+         <origin xyz="0.000893298872235559 4.97185265354338e-07 0.10642138763934732" rpy="0.04194673297001396 -0.0002782271006374071 1.5768021406033002"/>
+         <geometry>
+            <mesh filename="stl/forearm_1.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+      <visual name="forearm_collision">
+         <origin xyz="-2.3000312765045747e-08 -2.164897719253595e-08 0.0927456223223767" rpy="0.0 0.0 0.0"/>
+         <geometry>
+            <mesh filename="stl/forearm_collision.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <link name="lh_wrist">
+      <visual name="wrist">
+         <origin xyz="-0.002649367921167266 2.261926455551266e-05 0.016064313762781297" rpy="1.5869164552677142 -0.001569226018203862 1.5709199484972967"/>
+         <geometry>
+            <mesh filename="stl/left_wrist.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <joint type="revolute" name="lh_WRJ2">
+      <parent link="lh_forearm"/>
+      <child link="lh_wrist"/>
+      <origin xyz="0.01 0.0 0.21301" rpy="0.0 0.0 1.5707963267948963"/>
+      <axis xyz="0.0 -1.0 0.0"/>
+      <limit lower="-0.523599" upper="0.174533" effort="100" velocity="100"/>
+   </joint>
+   <link name="lh_palm">
+      <visual name="palm">
+         <origin xyz="-0.005374445159140238 -0.0022442906529939566 0.0320129431647506" rpy="-0.2100458360522472 0.08313278287794423 1.5912715584960464"/>
+         <geometry>
+            <mesh filename="stl/left_palm.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <joint type="revolute" name="lh_WRJ1">
+      <parent link="lh_wrist"/>
+      <child link="lh_palm"/>
+      <origin xyz="0.0 0.0 0.034" rpy="0.0 0.0 0.0"/>
+      <axis xyz="1.0 0.0 0.0"/>
+      <limit lower="-0.698132" upper="0.488692" effort="100" velocity="100"/>
+   </joint>
+   <link name="lh_ffknuckle">
+      <visual name="f_knuckle">
+         <origin xyz="-8.015943942283821e-06 0.00028383334511582203 0.0003141144870240873" rpy="0.4761390295154802 0.007276744315003247 -0.01128884895567703"/>
+         <geometry>
+            <mesh filename="stl/f_knuckle.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <joint type="revolute" name="lh_FFJ4">
+      <parent link="lh_palm"/>
+      <child link="lh_ffknuckle"/>
+      <origin xyz="-0.033 0.0 0.095" rpy="0.0 0.0 0.0"/>
+      <axis xyz="0.0 1.0 0.0"/>
+      <limit lower="-0.349066" upper="0.349066" effort="100" velocity="100"/>
+   </joint>
+   <link name="lh_ffproximal">
+      <visual name="f_proximal">
+         <origin xyz="1.2104673000657597e-06 9.76175282387983e-06 0.022880653343431333" rpy="-7.135757573614219e-06 0.01189393423812235 1.5705980355726104"/>
+         <geometry>
+            <mesh filename="stl/f_proximal.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <joint type="revolute" name="lh_FFJ3">
+      <parent link="lh_ffknuckle"/>
+      <child link="lh_ffproximal"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <axis xyz="1.0 0.0 0.0"/>
+      <limit lower="-0.261799" upper="1.5708" effort="100" velocity="100"/>
+   </joint>
+   <link name="lh_ffmiddle">
+      <visual name="f_middle">
+         <origin xyz="-2.7197407046965675e-06 -3.219283283025054e-05 0.011511409944870538" rpy="-1.5154077996843905e-05 -0.00025673504362555555 1.5707963267948966"/>
+         <geometry>
+            <mesh filename="stl/f_middle.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <joint type="revolute" name="lh_FFJ2">
+      <parent link="lh_ffproximal"/>
+      <child link="lh_ffmiddle"/>
+      <origin xyz="0.0 0.0 0.045" rpy="0.0 0.0 0.0"/>
+      <axis xyz="1.0 0.0 0.0"/>
+      <limit lower="0.0" upper="1.5708" effort="100" velocity="100"/>
+   </joint>
+   <link name="lh_ffdistal">
+      <visual name="f_distal_pst">
+         <origin xyz="-2.398434946392576e-05 0.00042073257364413626 0.017646475317320408" rpy="1.9593220200595154e-05 0.002689843516656243 1.582276007411751"/>
+         <geometry>
+            <mesh filename="stl/f_distal_pst.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <joint type="revolute" name="lh_FFJ1">
+      <parent link="lh_ffmiddle"/>
+      <child link="lh_ffdistal"/>
+      <origin xyz="0.0 0.0 0.025" rpy="0.0 0.0 0.0"/>
+      <axis xyz="1.0 0.0 0.0"/>
+      <limit lower="0.0" upper="1.5708" effort="100" velocity="100"/>
+   </joint>
+   <link name="lh_mfknuckle">
+      <visual name="f_knuckle">
+         <origin xyz="-8.015943942283821e-06 0.00028383334511582203 0.0003141144870240873" rpy="0.4761390295154802 0.007276744315003247 -0.01128884895567703"/>
+         <geometry>
+            <mesh filename="stl/f_knuckle.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <joint type="revolute" name="lh_MFJ4">
+      <parent link="lh_palm"/>
+      <child link="lh_mfknuckle"/>
+      <origin xyz="-0.011 0.0 0.099" rpy="0.0 0.0 0.0"/>
+      <axis xyz="0.0 1.0 0.0"/>
+      <limit lower="-0.349066" upper="0.349066" effort="100" velocity="100"/>
+   </joint>
+   <link name="lh_mfproximal">
+      <visual name="f_proximal">
+         <origin xyz="1.2104673000657597e-06 9.76175282387983e-06 0.022880653343431333" rpy="-7.135757573614219e-06 0.01189393423812235 1.5705980355726104"/>
+         <geometry>
+            <mesh filename="stl/f_proximal.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <joint type="revolute" name="lh_MFJ3">
+      <parent link="lh_mfknuckle"/>
+      <child link="lh_mfproximal"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <axis xyz="1.0 0.0 0.0"/>
+      <limit lower="-0.261799" upper="1.5708" effort="100" velocity="100"/>
+   </joint>
+   <link name="lh_mfmiddle">
+      <visual name="f_middle">
+         <origin xyz="-2.7197407046965675e-06 -3.219283283025054e-05 0.011511409944870538" rpy="-1.5154077996843905e-05 -0.00025673504362555555 1.5707963267948966"/>
+         <geometry>
+            <mesh filename="stl/f_middle.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <joint type="revolute" name="lh_MFJ2">
+      <parent link="lh_mfproximal"/>
+      <child link="lh_mfmiddle"/>
+      <origin xyz="0.0 0.0 0.045" rpy="0.0 0.0 0.0"/>
+      <axis xyz="1.0 0.0 0.0"/>
+      <limit lower="0.0" upper="1.5708" effort="100" velocity="100"/>
+   </joint>
+   <link name="lh_mfdistal">
+      <visual name="f_distal_pst">
+         <origin xyz="-2.398434946392576e-05 0.00042073257364413626 0.017646475317320408" rpy="1.9593220200595154e-05 0.002689843516656243 1.582276007411751"/>
+         <geometry>
+            <mesh filename="stl/f_distal_pst.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <joint type="revolute" name="lh_MFJ1">
+      <parent link="lh_mfmiddle"/>
+      <child link="lh_mfdistal"/>
+      <origin xyz="0.0 0.0 0.025" rpy="0.0 0.0 0.0"/>
+      <axis xyz="1.0 0.0 0.0"/>
+      <limit lower="0.0" upper="1.5708" effort="100" velocity="100"/>
+   </joint>
+   <link name="lh_rfknuckle">
+      <visual name="f_knuckle">
+         <origin xyz="-8.015943942283821e-06 0.00028383334511582203 0.0003141144870240873" rpy="0.4761390295154802 0.007276744315003247 -0.01128884895567703"/>
+         <geometry>
+            <mesh filename="stl/f_knuckle.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <joint type="revolute" name="lh_RFJ4">
+      <parent link="lh_palm"/>
+      <child link="lh_rfknuckle"/>
+      <origin xyz="0.011 0.0 0.095" rpy="0.0 0.0 0.0"/>
+      <axis xyz="0.0 -1.0 0.0"/>
+      <limit lower="-0.349066" upper="0.349066" effort="100" velocity="100"/>
+   </joint>
+   <link name="lh_rfproximal">
+      <visual name="f_proximal">
+         <origin xyz="1.2104673000657597e-06 9.76175282387983e-06 0.022880653343431333" rpy="-7.135757573614219e-06 0.01189393423812235 1.5705980355726104"/>
+         <geometry>
+            <mesh filename="stl/f_proximal.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <joint type="revolute" name="lh_RFJ3">
+      <parent link="lh_rfknuckle"/>
+      <child link="lh_rfproximal"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <axis xyz="1.0 0.0 0.0"/>
+      <limit lower="-0.261799" upper="1.5708" effort="100" velocity="100"/>
+   </joint>
+   <link name="lh_rfmiddle">
+      <visual name="f_middle">
+         <origin xyz="-2.7197407046965675e-06 -3.219283283025054e-05 0.011511409944870538" rpy="-1.5154077996843905e-05 -0.00025673504362555555 1.5707963267948966"/>
+         <geometry>
+            <mesh filename="stl/f_middle.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <joint type="revolute" name="lh_RFJ2">
+      <parent link="lh_rfproximal"/>
+      <child link="lh_rfmiddle"/>
+      <origin xyz="0.0 0.0 0.045" rpy="0.0 0.0 0.0"/>
+      <axis xyz="1.0 0.0 0.0"/>
+      <limit lower="0.0" upper="1.5708" effort="100" velocity="100"/>
+   </joint>
+   <link name="lh_rfdistal">
+      <visual name="f_distal_pst">
+         <origin xyz="-2.398434946392576e-05 0.00042073257364413626 0.017646475317320408" rpy="1.9593220200595154e-05 0.002689843516656243 1.582276007411751"/>
+         <geometry>
+            <mesh filename="stl/f_distal_pst.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <joint type="revolute" name="lh_RFJ1">
+      <parent link="lh_rfmiddle"/>
+      <child link="lh_rfdistal"/>
+      <origin xyz="0.0 0.0 0.025" rpy="0.0 0.0 0.0"/>
+      <axis xyz="1.0 0.0 0.0"/>
+      <limit lower="0.0" upper="1.5708" effort="100" velocity="100"/>
+   </joint>
+   <link name="lh_lfmetacarpal">
+      <visual name="lf_metacarpal">
+         <origin xyz="0.01889428 -0.00066234 -0.03130367" rpy="-2.3000784239220704 -0.020326401574026515 -1.6109676962386363"/>
+         <!-- <origin xyz="-0.0024777484490041417 0.0006623357453732885 0.036479774502610314" rpy="0.23066278733853368 0.039690075483540976 1.5920475463254278"/> -->
+         <geometry>
+            <mesh filename="stl/left_lf_metacarpal.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <joint type="revolute" name="lh_LFJ5">
+      <parent link="lh_palm"/>
+      <child link="lh_lfmetacarpal"/>
+      <origin xyz="0.033 0.0 0.02071" rpy="-3.141592653589793 -0.6108649061631908 0.0"/>
+      <axis xyz="0.0 0.0 1.0"/>
+      <!-- <origin xyz="0.033 0.0 0.02071" rpy="0.0 0.0 0.0"/> -->
+      <!-- <axis xyz="0.5735761643640092 0.0 -0.819152234736298"/> -->
+      <limit lower="0.0" upper="0.785398" effort="100" velocity="100"/>
+   </joint>
+   <link name="lh_lfknuckle">
+      <visual name="f_knuckle">
+         <origin xyz="-8.015943942283821e-06 0.00028383334511582203 0.0003141144870240873" rpy="0.4761390295154802 0.007276744315003247 -0.01128884895567703"/>
+         <geometry>
+            <mesh filename="stl/f_knuckle.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <joint type="revolute" name="lh_LFJ4">
+      <parent link="lh_lfmetacarpal"/>
+      <child link="lh_lfknuckle"/>
+      <!-- <origin xyz="0.0 0.0 0.06579" rpy="0.0 0.0 0.0"/> -->
+      <origin xyz="0.03773558 0. -0.05389203" rpy="-3.141592653589793 -0.6108649061631908 0"/>
+      <axis xyz="0.0 -1.0 0.0"/>
+      <limit lower="-0.349066" upper="0.349066" effort="100" velocity="100"/>
+   </joint>
+   <link name="lh_lfproximal">
+      <visual name="f_proximal">
+         <origin xyz="1.2104673000657597e-06 9.76175282387983e-06 0.022880653343431333" rpy="-7.135757573614219e-06 0.01189393423812235 1.5705980355726104"/>
+         <geometry>
+            <mesh filename="stl/f_proximal.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <joint type="revolute" name="lh_LFJ3">
+      <parent link="lh_lfknuckle"/>
+      <child link="lh_lfproximal"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <axis xyz="1.0 0.0 0.0"/>
+      <limit lower="-0.261799" upper="1.5708" effort="100" velocity="100"/>
+   </joint>
+   <link name="lh_lfmiddle">
+      <visual name="f_middle">
+         <origin xyz="-2.7197407046965675e-06 -3.219283283025054e-05 0.011511409944870538" rpy="-1.5154077996843905e-05 -0.00025673504362555555 1.5707963267948966"/>
+         <geometry>
+            <mesh filename="stl/f_middle.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <joint type="revolute" name="lh_LFJ2">
+      <parent link="lh_lfproximal"/>
+      <child link="lh_lfmiddle"/>
+      <origin xyz="0.0 0.0 0.045" rpy="0.0 0.0 0.0"/>
+      <axis xyz="1.0 0.0 0.0"/>
+      <limit lower="0.0" upper="1.5708" effort="100" velocity="100"/>
+   </joint>
+   <link name="lh_lfdistal">
+      <visual name="f_distal_pst">
+         <origin xyz="-2.398434946392576e-05 0.00042073257364413626 0.017646475317320408" rpy="1.9593220200595154e-05 0.002689843516656243 1.582276007411751"/>
+         <geometry>
+            <mesh filename="stl/f_distal_pst.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <joint type="revolute" name="lh_LFJ1">
+      <parent link="lh_lfmiddle"/>
+      <child link="lh_lfdistal"/>
+      <origin xyz="0.0 0.0 0.025" rpy="0.0 0.0 0.0"/>
+      <axis xyz="1.0 0.0 0.0"/>
+      <limit lower="0.0" upper="1.5708" effort="100" velocity="100"/>
+   </joint>
+   <link name="lh_thbase"/>
+   <joint type="revolute" name="lh_THJ5">
+      <parent link="lh_palm"/>
+      <child link="lh_thbase"/>
+      <origin xyz="-0.034 -0.00858 0.029" rpy="0.0 0.7853970066908715 3.141592653589793"/>
+      <axis xyz="0.0 0.0 1.0"/>
+      <limit lower="-1.0472" upper="1.0472" effort="100" velocity="100"/>
+   </joint>
+   <link name="lh_thproximal">
+      <visual name="th_proximal">
+         <origin xyz="-6.378894056540728e-06 -2.6031284627244637e-05 0.016715298411459745" rpy="-4.186875454471058e-06 0.0010962409823094266 0.3847587823606159"/>
+         <geometry>
+            <mesh filename="stl/th_proximal.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <joint type="revolute" name="lh_THJ4">
+      <parent link="lh_thbase"/>
+      <child link="lh_thproximal"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <axis xyz="-1.0 0.0 0.0"/>
+      <limit lower="0.0" upper="1.22173" effort="100" velocity="100"/>
+   </joint>
+   <link name="lh_thhub"/>
+   <joint type="revolute" name="lh_THJ3">
+      <parent link="lh_thproximal"/>
+      <child link="lh_thhub"/>
+      <origin xyz="0.0 0.0 0.038" rpy="0.0 0.0 0.0"/>
+      <axis xyz="-1.0 0.0 0.0"/>
+      <limit lower="-0.20944" upper="0.20944" effort="100" velocity="100"/>
+   </joint>
+   <link name="lh_thmiddle">
+      <visual name="th_middle">
+         <origin xyz="7.479629857400793e-05 -4.506977852869377e-05 0.015348398308984388" rpy="0.0 -0.0009035488116579948 0.0"/>
+         <geometry>
+            <mesh filename="stl/th_middle.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <joint type="revolute" name="lh_THJ2">
+      <parent link="lh_thhub"/>
+      <child link="lh_thmiddle"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <axis xyz="0.0 -1.0 0.0"/>
+      <limit lower="-0.698132" upper="0.698132" effort="100" velocity="100"/>
+   </joint>
+   <link name="lh_thdistal">
+      <visual name="th_distal_pst">
+         <origin xyz="-8.254509753145168e-07 0.000802518759472585 0.019553373143358997" rpy="-0.0001073181947076323 0.003173495876248822 1.5706693697416252"/>
+         <geometry>
+            <mesh filename="stl/th_distal_pst.stl"/>
+         </geometry>
+         <material name="white"/>
+      </visual>
+   </link>
+   <joint type="revolute" name="lh_THJ1">
+      <parent link="lh_thmiddle"/>
+      <child link="lh_thdistal"/>
+      <origin xyz="0.0 0.0 0.032" rpy="0.0 0.0 -1.5707963267948963"/>
+      <axis xyz="1.0 0.0 0.0"/>
+      <limit lower="-0.261799" upper="1.5708" effort="100" velocity="100"/>
+   </joint>
+   <material name="white">
+      <color rgba="1 1 1 1"/>
+   </material>
+</robot>

@@ -1,0 +1,233 @@
+{
+  "distribution": "ordinary Git blobs; publication pending license review",
+  "files": {
+    "src/curobo/content/configs/manip/sim_shadow.yml": {
+      "bytes": 5056,
+      "sha256": "fc9f436067e3cee96e0f559e0c5afba180f34cd5dda881faeeea1bfcd698dac0"
+    },
+    "src/curobo/content/configs/manip/sim_shadow/tabletop_two.yml": {
+      "bytes": 2229,
+      "sha256": "e7f6d1b1e21671e539276832198fff31dd1722cec1330fc0c805318586adb64a"
+    },
+    "src/curobo/content/configs/robot/right_shadow_hand_sim.yml": {
+      "bytes": 4568,
+      "sha256": "e3a2657b9e38470356e533a41b140ba0646e2d3674597b3254b7204860acd504"
+    },
+    "src/curobo/content/configs/robot/spheres/right_shadow_hand.yml": {
+      "bytes": 3333,
+      "sha256": "c63d0195c70428e50250e0c9238ea08b815a9ae07f160eda05c9d3f2b7de137c"
+    },
+    "src/curobo/content/configs/robot/hand_pose_transfer/right_shadow_hand.yml": {
+      "bytes": 623,
+      "sha256": "c5f0684da4f7a14ef558dea5e9ebc36786befd3bfb483f9cf9c440380aae218a"
+    },
+    "src/curobo/content/configs/robot/hand_pose_human_transfer/right_shadow_hand.yml": {
+      "bytes": 423,
+      "sha256": "09a69cae7c97741331dc3b014a79824ec99e7f46248f5d7a84058be0c259ba9a"
+    },
+    "src/curobo/content/configs/task/base_grasp.yml": {
+      "bytes": 1318,
+      "sha256": "1b0b6af61c2b163e09c3cf424ca60b87c5625718503d84e4a01a75f933ba3bd3"
+    },
+    "src/curobo/content/configs/task/particle_grasp_debug.yml": {
+      "bytes": 2070,
+      "sha256": "d38ba1a25dd976c1868e5eea0fb062ac84c21735fce2046ffed88920d462439d"
+    },
+    "src/curobo/content/configs/task/gradient_grasp_fc.yml": {
+      "bytes": 2205,
+      "sha256": "c9a1c8ad59612ae99bf7a1963752bca26464dace3682f2b752f064c87c1d1656"
+    },
+    "src/curobo/content/assets/robot/shadow_hand/right_sim.urdf": {
+      "bytes": 16482,
+      "sha256": "949ff3f2035c10053ddf07e1f3400bc932f54a527f1c0fc671093b37435c1a46"
+    },
+    "src/curobo/content/assets/robot/shadow_hand/stl/right_palm.stl": {
+      "bytes": 583484,
+      "sha256": "ada96aed9ab3303746596ab0e1038c2dc7e3a02284fa3773937927ccaadef875"
+    },
+    "src/curobo/content/assets/robot/shadow_hand/stl/f_knuckle.stl": {
+      "bytes": 29584,
+      "sha256": "de2e62c7aa1be6318a73640f89319362fe02838e6638b0b610706ae06e21ce6a"
+    },
+    "src/curobo/content/assets/robot/shadow_hand/stl/f_proximal.stl": {
+      "bytes": 54684,
+      "sha256": "479f3f03f0de0bee7fb59226bb5475afbcbdca2fcd81c3670d83ffade52bdbea"
+    },
+    "src/curobo/content/assets/robot/shadow_hand/stl/f_middle.stl": {
+      "bytes": 22284,
+      "sha256": "3cd09c586ac50e4a43e3bcc926790a9590fe6aa06c950825dc91cd6545ee174a"
+    },
+    "src/curobo/content/assets/robot/shadow_hand/stl/f_distal_pst.stl": {
+      "bytes": 268784,
+      "sha256": "c5a0a5f7137991279a6050d0a2b1bbaf8e5c4825fe1f2268285bd6f028297b4b"
+    },
+    "src/curobo/content/assets/robot/shadow_hand/stl/right_lf_metacarpal.stl": {
+      "bytes": 74484,
+      "sha256": "425c609b86d7b318296d8921564b43b6853993669e5141be6d155ef3d509d2e1"
+    },
+    "src/curobo/content/assets/robot/shadow_hand/stl/th_proximal.stl": {
+      "bytes": 20584,
+      "sha256": "fa836456739b913139c00db5b520144d69416a1827e4231a0685648e667996a3"
+    },
+    "src/curobo/content/assets/robot/shadow_hand/stl/th_middle.stl": {
+      "bytes": 63184,
+      "sha256": "c7578448b44170123029c16a33f1495a6cf5dad5bb1f05bdf03e6b443c0dbd90"
+    },
+    "src/curobo/content/assets/robot/shadow_hand/stl/th_distal_pst.stl": {
+      "bytes": 237684,
+      "sha256": "7bf32d310dbb20a31e603522487a2a41bef2bd6581850a9ebc8412635bcd9a3d"
+    },
+    "src/curobo/content/configs/manip/sim_shadow/tabletop_three.yml": {
+      "bytes": 2265,
+      "sha256": "01acc391f4ddb30dab62ccb9a5efc8db06b13d091560378e5008938a93a2b34c"
+    },
+    "src/curobo/content/configs/manip/sim_shadow/tabletop_full.yml": {
+      "bytes": 2309,
+      "sha256": "c2d341203ee1f57b97a556ac5c3ba1697db328d446dc4e0dc98ee676ddcc194a"
+    },
+    "src/curobo/content/configs/manip/sim_dual_dummy_arm_shadow/tabletop_three.yml": {
+      "bytes": 3611,
+      "sha256": "b29c3a24b19250194731acf8d4743f7a50de9f0032b4bedceed85fdab18ed037"
+    },
+    "src/curobo/content/configs/robot/dual_dummy_arm_shadow.yml": {
+      "bytes": 8698,
+      "sha256": "4937e03c55cdef590473c5580740e6a9f13289f21dd223f357c1de62e513e32e"
+    },
+    "src/curobo/content/configs/robot/spheres/dual_dummy_arm_shadow.yml": {
+      "bytes": 6330,
+      "sha256": "173f01447249e2872861e8256036b9b5d83d055c3b8581004a509df16a9f1d94"
+    },
+    "src/curobo/content/configs/robot/hand_pose_transfer/dual_dummy_arm_shadow.yml": {
+      "bytes": 899,
+      "sha256": "40b37c4b9465174e2801a49e69f6e1403654c7eefb716ca911496164f266b922"
+    },
+    "src/curobo/content/configs/robot/hand_pose_human_transfer/dual_dummy_arm_shadow.yaml": {
+      "bytes": 585,
+      "sha256": "14c45fa0ae2d3930219fa5ccbd2ba74731f920c920f0f91394a09977e6794d30"
+    },
+    "src/curobo/content/assets/robot/shadow_hand/dual_dummy_arm_shadow.urdf": {
+      "bytes": 34682,
+      "sha256": "d9fa8a47df246faa2ba24e96c836a55b8cf47078d0217b70874c501e01ac64fc"
+    },
+    "src/curobo/content/assets/robot/shadow_hand/stl/left_palm.stl": {
+      "bytes": 583484,
+      "sha256": "d0cc011fca1a82d609219659340c6a88bec227a3e870c14dc6f4e44172adfeda"
+    },
+    "src/curobo/content/assets/robot/shadow_hand/stl/left_lf_metacarpal.stl": {
+      "bytes": 74484,
+      "sha256": "a25bf2b26450a051b8db9c080cf0995db8fb6b09d8f979c2780769e8c5cf1c12"
+    },
+    "src/curobo/content/configs/manip/sim_dual_dummy_arm_shadow/tabletop_full.yml": {
+      "bytes": 4129,
+      "sha256": "4b73ba0d740a8672b6d2cbdb843ec4f6e5b6e77616d631a4db4c27a89a607e4a"
+    },
+    "src/curobo/content/configs/manip/sim_leap_sp.yml": {
+      "bytes": 2861,
+      "sha256": "1ba366680d616f1df9d52d194e220760989258cb2b5b5273815f75c365273217"
+    },
+    "src/curobo/content/configs/manip/sim_leap_sp/tabletop_two.yml": {
+      "bytes": 2283,
+      "sha256": "164762508def8a1b167d1e6fb5bb38591d44a77bb927d63d98d8bebc8d77f61b"
+    },
+    "src/curobo/content/configs/robot/leap_sp.yml": {
+      "bytes": 4577,
+      "sha256": "856e4c9dcb712fea497dfa9fcbdc32cf24a6d6d6e76654fdf33affca584e55aa"
+    },
+    "src/curobo/content/configs/robot/spheres/leap_sp.yml": {
+      "bytes": 3386,
+      "sha256": "83353cadf96539785beecd5c929ebdf01bba27088e2d504e902dcba7014e5a48"
+    },
+    "src/curobo/content/configs/robot/hand_pose_transfer/leap_sp.yml": {
+      "bytes": 507,
+      "sha256": "8f6aa683ec37ca6d922f2697f59f65453bf544ca98c7f1cdf342394bb7e60804"
+    },
+    "src/curobo/content/configs/robot/hand_pose_human_transfer/leap_sp.yml": {
+      "bytes": 477,
+      "sha256": "77b1d7330194622007ffb7e0fa1de31eb9def5208805f6ddaed422c4259a89b5"
+    },
+    "src/curobo/content/assets/robot/leap_hand/leap_sp.urdf": {
+      "bytes": 30260,
+      "sha256": "4e03d87144fab325a029e8655aef720e27800d41251196735c016f00ae3cb99b"
+    },
+    "src/curobo/content/assets/robot/leap_hand/meshes/palm_lower.stl": {
+      "bytes": 4347184,
+      "sha256": "eae47756f1a1978b255a36c0b75c24c0af886d10026c2950a2b0acef66f09c8c"
+    },
+    "src/curobo/content/assets/robot/leap_hand/meshes/mcp_joint.stl": {
+      "bytes": 1608784,
+      "sha256": "56af82c57b469d491f544d6de12e2696b4284b50e89ca271502aaa0631f04b59"
+    },
+    "src/curobo/content/assets/robot/leap_hand/meshes/pip.stl": {
+      "bytes": 1051084,
+      "sha256": "b778405c95127023c8b110e6e2f5a181ad8a46dadc2ac98d3f038debae52ef33"
+    },
+    "src/curobo/content/assets/robot/leap_hand/meshes/dip.stl": {
+      "bytes": 1538284,
+      "sha256": "9222f0ee1fa0077c70a219f7952df6f4208b003ad06a608e006cd0d8057d4b1c"
+    },
+    "src/curobo/content/assets/robot/leap_hand/meshes/fingertip_base.stl": {
+      "bytes": 523184,
+      "sha256": "494e2e3e31e663f45ca6b2e727e4b74c79bfd6ef43c0c0406c1b6a6f24bbde0e"
+    },
+    "src/curobo/content/assets/robot/leap_hand/meshes/thumb_pip.stl": {
+      "bytes": 468884,
+      "sha256": "40532d5d555e150748f8563fb378ab3d0839b9221eb5ef108e86fde01a98dfe0"
+    },
+    "src/curobo/content/assets/robot/leap_hand/meshes/thumb_dip.stl": {
+      "bytes": 1451484,
+      "sha256": "7261cf99cd44ae42360dc72a417c2526a73ec8ff4c446858042d6d0675b4f2bf"
+    },
+    "src/curobo/content/assets/robot/leap_hand/meshes/thumb_fingertip_base.stl": {
+      "bytes": 1017784,
+      "sha256": "95600c5c9652307e9a03ba3cfa7d0beab1ba86268257d99db516f1237d1d08e4"
+    },
+    "src/curobo/content/assets/robot/leap_hand/meshes/paxini_combined_convex.STL": {
+      "bytes": 301584,
+      "sha256": "1b116665797a388c355e94361379f088a2e64085dffc9b335cb660a72c02844f"
+    },
+    "src/curobo/content/configs/manip/sim_leap_sp/tabletop_three.yml": {
+      "bytes": 2329,
+      "sha256": "0ce4e069edc009eb9244975cc408e79345d4853f1f2a6804503d579e1ba8129e"
+    },
+    "src/curobo/content/configs/manip/sim_leap_sp/tabletop_full.yml": {
+      "bytes": 2524,
+      "sha256": "ef58848aabe5cf68cb4667766afec20ca69df8486747fd6249cc5f56941a4cf6"
+    },
+    "src/curobo/content/configs/manip/sim_dual_dummy_arm_leap_sp/tabletop_three.yml": {
+      "bytes": 3213,
+      "sha256": "8dd7c1276e2f479b203451e3e89dc37b73e7931d89d6d79115d9886f47dfdcfd"
+    },
+    "src/curobo/content/configs/robot/dual_dummy_arm_leap_sp.yml": {
+      "bytes": 8061,
+      "sha256": "abad8c1a31170bd01d238756e203d0a2ca629db708ff114f842d657ddd0dd6c1"
+    },
+    "src/curobo/content/configs/robot/spheres/dual_dummy_arm_leap_sp.yml": {
+      "bytes": 6707,
+      "sha256": "19753ba640288fdbf91ef3644bc6f902d7910f70e6111190153e53251afcd81d"
+    },
+    "src/curobo/content/configs/robot/hand_pose_transfer/dual_dummy_arm_leap_sp.yml": {
+      "bytes": 666,
+      "sha256": "7d4f77664711aad3fe3ac8805bd187b58186862140e4a6414e001276ed1a16a5"
+    },
+    "src/curobo/content/configs/robot/hand_pose_human_transfer/dual_dummy_arm_leap_sp.yml": {
+      "bytes": 693,
+      "sha256": "964c3fab59f5fea5c6987e1c9b56a0f2bfe803c43c7d40b30885c0ed61537889"
+    },
+    "src/curobo/content/assets/robot/leap_hand/dual_dummy_arm_leap_sp.urdf": {
+      "bytes": 66695,
+      "sha256": "91273e43b7c725eb2de2fb8d383b87c39261e0180137c5b672b45f0c0b746360"
+    },
+    "src/curobo/content/assets/robot/leap_hand/meshes/palm_lower_left.stl": {
+      "bytes": 4365084,
+      "sha256": "2add77176d2bdcf62421c51a38886e36dac46efdb8d9dcbff29610df73407fca"
+    },
+    "src/curobo/content/assets/robot/leap_hand/meshes/thumb_left_temp_base.stl": {
+      "bytes": 1053084,
+      "sha256": "2b905075394e4fd4e3c862fdfb4d0786c6145629862ce9f20652525042b8f1a8"
+    },
+    "src/curobo/content/configs/manip/sim_dual_dummy_arm_leap_sp/tabletop_full.yml": {
+      "bytes": 3355,
+      "sha256": "83caa6b5887ee7397724afeb6fa4a8fe04e38e39b2ac007f773158a1489cee9b"
+    }
+  }
+}

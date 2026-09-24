@@ -1,0 +1,7 @@
+# Curated robot assets are stored as ordinary Git blobs in this candidate.
+# No dependency on a private LFS endpoint or cache.
+*.stl binary
+*.STL binary
+*.png binary
+*.jpg binary
+*.nvblx binary

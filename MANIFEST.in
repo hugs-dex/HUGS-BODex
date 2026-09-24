@@ -1,0 +1,29 @@
+# Copyright (c) 2023, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+#
+# NVIDIA CORPORATION and its licensors retain all intellectual property
+# and proprietary rights in and to this software, related documentation
+# and any modifications thereto.  Any use, reproduction, disclosure or
+# distribution of this software and related documentation without an express
+# license agreement from NVIDIA CORPORATION is strictly prohibited.
+
+# This file list the additional files that should be include in the package distribution.
+#
+# References:
+# * https://packaging.python.org/guides/using-manifest-in/
+# * https://setuptools.readthedocs.io/en/latest/userguide/datafiles.html
+# * https://stackoverflow.com/questions/6028000/how-to-read-a-static-file-from-inside-a-python-package
+
+# Include only source-controlled configuration and robot descriptions/meshes.
+recursive-include src/curobo/content/configs *.yml *.yaml *.json
+recursive-include src/curobo/content/assets/robot *.urdf *.xml *.xacro *.obj *.stl *.STL *.dae *.ply *.mtl *.png *.jpg *.txt LICENSE* README*
+recursive-include src/curobo/curobolib/cpp *.h *.cpp *.cu *.cuh
+recursive-include src/curobo/geom/cpp *.py *.cpp *.h
+recursive-include cfg *.yaml
+include LICENSE LICENSE_ASSETS THIRD_PARTY_NOTICES.md
+recursive-include docs *.md *.json
+prune src/curobo/content/assets/output
+prune src/curobo/content/assets/object
+prune build
+prune outputs
+global-exclude *.pyc *.so
+global-include py.typed

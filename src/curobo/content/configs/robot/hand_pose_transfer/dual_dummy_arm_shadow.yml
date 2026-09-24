@@ -1,0 +1,24 @@
+# transfer_trans defines the transformation from palm frame to hand base frame
+#
+# Palm frame (sampled from object surface):
+#   - x-axis: points towards object (from palm)
+#   - y-axis: points towards thumb (right hand) or away from thumb (left hand)
+#   - z-axis: points towards four primary fingers
+#
+# Hand base frame: defined by the hand URDF
+
+rh_palm:
+  # r: [[0.0, -1, 0],[1, 0, 0],[0, 0, 1]]
+  # t: [0.0, 0.0, -0.08]
+  r: [[ 1.11022302e-16,  1.00000000e+00,  0.00000000e+00],
+      [-8.66025404e-01,  1.11022302e-16,  5.00000000e-01],
+      [ 5.00000000e-01, -1.11022302e-16,  8.66025404e-01]]
+  t: [0.0, 0.0, 0.05]
+
+lh_palm:
+  # r: [[0.0, -1, 0],[1, 0, 0],[0, 0, 1]]
+  # t: [0.0, 0.0, -0.08]
+  r: [[ 1.11022302e-16,  1.00000000e+00,  0.00000000e+00],
+      [-8.66025404e-01,  1.11022302e-16,  5.00000000e-01],
+      [ 5.00000000e-01, -1.11022302e-16,  8.66025404e-01]]
+  t: [0.0, 0.0, 0.05]

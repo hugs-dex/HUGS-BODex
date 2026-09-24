@@ -1,0 +1,14 @@
+name: human_shadow
+baseline: human
+robot_name: shadow
+description:
+
+requires:
+  task:
+    init_source: human
+    scene_source:
+      use_object_scale_list: false
+
+overrides:
+  suite:
+    human_prior: {}

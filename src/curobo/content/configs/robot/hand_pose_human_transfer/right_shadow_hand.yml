@@ -1,0 +1,12 @@
+# transfer_trans defines the transformation from human index_mcp frame to hand base frame
+#
+# Human index_mcp frame (sampled from human prior):
+#   - x-axis: points towards arm (opposite to four primary fingers)
+#   - y-axis: points towards palm up
+#   - z-axis: points towards thumb
+#
+# Hand base frame: defined by the hand URDF
+
+rh_palm:
+  r: [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]]
+  t: [0.033, 0.0, 0.095]

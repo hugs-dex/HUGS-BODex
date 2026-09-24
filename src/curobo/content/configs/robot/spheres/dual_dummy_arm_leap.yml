@@ -1,0 +1,228 @@
+collision_spheres:
+  rh_palm_lower:
+    - "center": [-0.04, 0.004, -0.012]
+      "radius": 0.025
+    - "center": [-0.04, -0.036, -0.012]
+      "radius": 0.025
+    - "center": [-0.04, -0.076, -0.012]
+      "radius": 0.025
+    - "center": [-0.075, -0.055, -0.012]
+      "radius": 0.025
+    - "center": [-0.009, 0.009, -0.012]
+      "radius": 0.015
+    - "center": [-0.009, -0.037, -0.012]
+      "radius": 0.015
+    - "center": [-0.009, -0.082, -0.012]
+      "radius": 0.015
+  rh_mcp_joint:
+    - "center": [-0.027, 0.052, 0.014]
+      "radius": 0.015
+    - "center": [-0.027, 0.032, 0.014]
+      "radius": 0.015
+  rh_mcp_joint_2:
+    - "center": [-0.027, 0.032, 0.014]
+      "radius": 0.015
+    - "center": [-0.027, 0.052, 0.014]
+      "radius": 0.015
+  rh_mcp_joint_3:
+    - "center": [-0.027, 0.052, 0.014]
+      "radius": 0.015
+    - "center": [-0.027, 0.032, 0.014]
+      "radius": 0.015
+  rh_pip:
+    - "center": [0.001, 0.0, -0.011]
+      "radius": 0.015
+    - "center": [0.014, 0.0, -0.011]
+      "radius": 0.015
+  rh_pip_2:
+    - "center": [0.014, 0.0, -0.011]
+      "radius": 0.015
+    - "center": [0.001, 0.0, -0.011]
+      "radius": 0.015
+  rh_pip_3:
+    - "center": [0.014, 0.0, -0.011]
+      "radius": 0.015
+    - "center": [0.001, 0.0, -0.011]
+      "radius": 0.015
+  rh_dip:
+    - "center": [0.002, -0.022, 0.015]
+      "radius": 0.015
+    - "center": [0.002, -0.046, 0.02]
+      "radius": 0.015
+    - "center": [0.002, -0.046, 0.01]
+      "radius": 0.015
+    - "center": [0.014, -0.035, 0.015]
+      "radius": 0.015
+  rh_dip_2:
+    - "center": [0.002, -0.022, 0.015]
+      "radius": 0.015
+    - "center": [0.002, -0.046, 0.02]
+      "radius": 0.015
+    - "center": [0.002, -0.046, 0.01]
+      "radius": 0.015
+    - "center": [0.014, -0.035, 0.015]
+      "radius": 0.015
+  rh_dip_3:
+    - "center": [0.002, -0.022, 0.015]
+      "radius": 0.015
+    - "center": [0.002, -0.046, 0.02]
+      "radius": 0.015
+    - "center": [0.002, -0.046, 0.01]
+      "radius": 0.015
+    - "center": [0.014, -0.035, 0.015]
+      "radius": 0.015
+  rh_pip_4:
+    - "center": [-0.005, 0.0, -0.012]
+      "radius": 0.015
+  rh_thumb_dip:
+    - "center": [0.0, 0.002, -0.014]
+      "radius": 0.015
+    - "center": [0.0, 0.022, -0.014]
+      "radius": 0.015
+  rh_thumb_fingertip_base:
+    - "center": [0.0, -0.002, -0.014]
+      "radius": 0.015
+    - "center": [0.0, -0.01, -0.014]
+      "radius": 0.015
+  rh_fingertip_1:
+    - "center": [0.0, 0.015, 0.007] # a small ball centered at the fingertip center (desired contact point)
+      "radius": 0.006
+    - "center": [0.0, 0.019, 0.001]
+      "radius": 0.012
+    - "center": [0.0, 0.005, 0.001]
+      "radius": 0.012
+  rh_fingertip_2:
+    - "center": [0.0, 0.015, 0.007] # a small ball centered at the fingertip center (desired contact point)
+      "radius": 0.006
+    - "center": [0.0, 0.019, 0.001]
+      "radius": 0.012
+    - "center": [0.0, 0.005, 0.001]
+      "radius": 0.012
+  rh_fingertip_3:
+    - "center": [0.0, 0.015, 0.007] # a small ball centered at the fingertip center (desired contact point)
+      "radius": 0.006
+    - "center": [0.0, 0.019, 0.001]
+      "radius": 0.012
+    - "center": [0.0, 0.005, 0.001]
+      "radius": 0.012
+  rh_thumb_fingertip:
+    - "center": [0.0, 0.015, 0.007] # a small ball centered at the fingertip center (desired contact point)
+      "radius": 0.006
+    - "center": [0.0, 0.019, 0.001]
+      "radius": 0.012
+    - "center": [0.0, 0.005, 0.001]
+      "radius": 0.012
+
+  lh_palm_lower:
+    - "center": [-0.04, -0.004, -0.012]
+      "radius": 0.025
+    - "center": [-0.04, 0.036, -0.012]
+      "radius": 0.025
+    - "center": [-0.04, 0.076, -0.012]
+      "radius": 0.025
+    - "center": [-0.075, 0.055, -0.012]
+      "radius": 0.025
+    - "center": [-0.009, -0.009, -0.012]
+      "radius": 0.015
+    - "center": [-0.009, 0.037, -0.012]
+      "radius": 0.015
+    - "center": [-0.009, 0.082, -0.012]
+      "radius": 0.015
+  lh_mcp_joint:
+    - "center": [-0.027, 0.052, 0.014]
+      "radius": 0.015
+    - "center": [-0.027, 0.032, 0.014]
+      "radius": 0.015
+  lh_mcp_joint_2:
+    - "center": [-0.027, 0.032, 0.014]
+      "radius": 0.015
+    - "center": [-0.027, 0.052, 0.014]
+      "radius": 0.015
+  lh_mcp_joint_3:
+    - "center": [-0.027, 0.052, 0.014]
+      "radius": 0.015
+    - "center": [-0.027, 0.032, 0.014]
+      "radius": 0.015
+  lh_pip:
+    - "center": [0.001, 0.0, -0.011]
+      "radius": 0.015
+    - "center": [0.014, 0.0, -0.011]
+      "radius": 0.015
+  lh_pip_2:
+    - "center": [0.014, 0.0, -0.011]
+      "radius": 0.015
+    - "center": [0.001, 0.0, -0.011]
+      "radius": 0.015
+  lh_pip_3:
+    - "center": [0.014, 0.0, -0.011]
+      "radius": 0.015
+    - "center": [0.001, 0.0, -0.011]
+      "radius": 0.015
+  lh_dip:
+    - "center": [0.002, -0.022, 0.015]
+      "radius": 0.015
+    - "center": [0.002, -0.046, 0.02]
+      "radius": 0.015
+    - "center": [0.002, -0.046, 0.01]
+      "radius": 0.015
+    - "center": [0.014, -0.035, 0.015]
+      "radius": 0.015
+  lh_dip_2:
+    - "center": [0.002, -0.022, 0.015]
+      "radius": 0.015
+    - "center": [0.002, -0.046, 0.02]
+      "radius": 0.015
+    - "center": [0.002, -0.046, 0.01]
+      "radius": 0.015
+    - "center": [0.014, -0.035, 0.015]
+      "radius": 0.015
+  lh_dip_3:
+    - "center": [0.002, -0.022, 0.015]
+      "radius": 0.015
+    - "center": [0.002, -0.046, 0.02]
+      "radius": 0.015
+    - "center": [0.002, -0.046, 0.01]
+      "radius": 0.015
+    - "center": [0.014, -0.035, 0.015]
+      "radius": 0.015
+  lh_pip_4:
+    - "center": [-0.005, 0.0, -0.012]
+      "radius": 0.015
+  lh_thumb_dip:
+    - "center": [0.0, 0.002, -0.014]
+      "radius": 0.015
+    - "center": [0.0, 0.022, -0.014]
+      "radius": 0.015
+  lh_thumb_fingertip_base:
+    - "center": [0.0, -0.002, -0.014]
+      "radius": 0.015
+    - "center": [0.0, -0.01, -0.014]
+      "radius": 0.015
+  lh_fingertip_1:
+    - "center": [0.0, 0.015, 0.007] # a small ball centered at the fingertip center (desired contact point)
+      "radius": 0.006
+    - "center": [0.0, 0.019, 0.001]
+      "radius": 0.012
+    - "center": [0.0, 0.005, 0.001]
+      "radius": 0.012
+  lh_fingertip_2:
+    - "center": [0.0, 0.015, 0.007] # a small ball centered at the fingertip center (desired contact point)
+      "radius": 0.006
+    - "center": [0.0, 0.019, 0.001]
+      "radius": 0.012
+    - "center": [0.0, 0.005, 0.001]
+      "radius": 0.012
+  lh_fingertip_3:
+    - "center": [0.0, 0.015, 0.007] # a small ball centered at the fingertip center (desired contact point)
+      "radius": 0.006
+    - "center": [0.0, 0.019, 0.001]
+      "radius": 0.012
+    - "center": [0.0, 0.005, 0.001]
+      "radius": 0.012
+  lh_thumb_fingertip:
+    - "center": [0.0, 0.015, 0.007] # a small ball centered at the fingertip center (desired contact point)
+      "radius": 0.006
+    - "center": [0.0, 0.019, 0.001]
+      "radius": 0.012
+    - "center": [0.0, 0.005, 0.001]
+      "radius": 0.012

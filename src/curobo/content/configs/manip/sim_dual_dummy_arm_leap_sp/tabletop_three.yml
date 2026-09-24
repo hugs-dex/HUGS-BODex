@@ -1,0 +1,113 @@
+world:
+  type: scene_cfg
+  template_path:
+  start:
+  end:
+
+
+robot_file: "dual_dummy_arm_leap_sp.yml"
+robot_file_with_arm: "dual_dummy_arm_leap_sp.yml"
+
+base_cfg_file: "base_grasp.yml"
+particle_file: "particle_grasp_debug.yml"
+gradient_file: "gradient_grasp_fc.yml"
+
+exp_name: 'debug'
+seed_num: 20
+seeder_cfg:
+  sampling_mode: # random / random_symmetric / random_xy_symmetric / ultradexgrasp
+  obj_sample:
+    num: 128
+    inflate: 0.095
+    convex_hull: True
+    hull_cache_mode: exact # exact / object_hull
+    contact_obb_cache_mode: uniform_raw # scaled / uniform_raw
+    contact_surface_points_mode: always # always / auto / off
+    contact_surface_sample_num: 4096
+    collision_free: True
+  ik_init_q:
+  ik_max_retries: 5
+  load_path:
+  skip_transfer: False
+  t:
+  r:  
+  q: [0, 0, 0, 0, 0, 0,
+      0.3, 0, 0.1, 0.0, 0.3, 0, 0.1, 0, 0.3, 0, 0.1, 0, 1.58, 0, -0.5, 0.0,
+      0, 0, 0, 0, 0, 0,
+      0.3, 0, 0.1, 0.0, 0.3, 0, 0.1, 0, 0.3, 0, 0.1, 0, -1.58, 0, -0.5, 0.0]
+  jitter_angle: [[-180, -15, -15], [180, 15, 15]]
+  jitter_dist: [[0.0, -0.03, -0.03], [0.03, 0.03, 0.03]]
+
+grasp_contact_strategy:
+  contact_points_name: ['rh_fingertip_1/0', 'rh_fingertip_2/0', 'rh_thumb_fingertip/0',
+                        'lh_fingertip_1/0', 'lh_fingertip_2/0', 'lh_thumb_fingertip/0']
+  contact_normals:
+    [
+      [0, 0, 1],
+      [0, 0, 1],
+      [0, 0, 1],
+      [0, 0, 1],
+      [0, 0, 1],
+      [0, 0, 1],
+    ]
+
+  # for contact stages during the optimization
+  opt_progress: [0.0, 0.4, 0.6, 0.8]
+  distance: [0.0, 0.0, 0.0, 0.01] # the last stage is for pre-grasp
+  contact_query_mode: [-1, -1, 0, 0]
+  save_qpos: [False, False, True] # not used
+  pregrasp_stage: 3 # the last step of this stage will be used as the pre-grasp pose
+  grasp_stage: 2 # the last step of this stage will be used as the grasp pose
+  max_ge_stage: 1
+
+grasp_cfg:
+  task_dict:
+    f: [0, 0, 1]
+    p: [0, 0, 0]
+    t: [0, 0, 0]
+    gamma: 180
+  ge_param:
+    type: 'qp'
+    miu_coef: [0.1, 0]
+    solver_type: 'batch_reluqp'
+    k_lower: 0.2
+    groups: # groups of finger indices for multi-finger force closure
+      [[0, 1, 2, 3, 4, 5],
+       [0, 1, 2],
+       [3, 4, 5]]
+    weights: [0.33, 0.33, 0.33]
+    multi_ge_type: "concate"
+    pressure_constraints:
+      [
+        [[0, 1, 2], 1.0, 3.0],
+        [[0, 1], 0.4, 2.0],
+        [[2], 0.5, 1.0],
+        [[3, 4, 5], 1.0, 3.0],
+        [[3, 4], 0.4, 2.0],
+        [[5], 0.5, 1.0],
+      ]
+    enable_density: False
+    solve_interval: 5
+
+# Replace the configurations in gradient_grasp_fc.yml
+gradient: 
+  cost:
+    grasp_cfg: 
+      weight: [
+                [100, 1000, 0, 0.1],
+                [1, 1000, 0, 0.01],
+                [0, 1000, 100, 0.001],
+                [0, 1000, 100, 0.0],
+              ] # grasp loss, dist loss, regu loss, normal loss for each contact stage
+  lbfgs:
+    n_iters: 500
+    inner_iters: 50
+    base_scale:  # learning rate for translation, rotation, and qpose for each contact stage
+      [
+        [0.1, 1.0, 0.1],
+        [0.07, 0.7, 0.07],
+        [0.07, 0.07, 0.07],
+        [0.0, 0.0, 0.05]
+      ]
+
+mogen_init: [0.4227, -1.5991, -1.8872, -3.0432, -0.9848,  3.2433,  0.1738, -0.2078, 0,0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,0]

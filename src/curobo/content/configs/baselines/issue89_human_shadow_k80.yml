@@ -1,0 +1,22 @@
+name: issue89_human_shadow_k80
+baseline: human
+robot_name: shadow
+description: Issue #89 learned Human Prior with K=80 and K_t_max=40.
+
+requires:
+  task:
+    init_source: human
+    scene_source:
+      use_object_scale_list: false
+
+overrides:
+  suite:
+    human_prior:
+      root: ../artifacts/issue_89_synthesis_budget_scaling/formal/human_prior_export/DGN_2k/shadow
+      total_budget: 80
+      min_type_budget: 0
+      max_type_budget: 40
+      score_threshold: 0.0
+      budget_resolution: 8
+      budget_rounding_mode: round
+      replacement: false

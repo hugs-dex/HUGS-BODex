@@ -1,0 +1,141 @@
+# Suite config path relative to src/curobo/content/configs/manip.
+# This file maps grasp types to manip configs and stores per-type metadata.
+# Leave null for a single-manip-config surface-sample run.
+suite_config:
+
+# Baseline override config path relative to src/curobo/content/configs/baselines.
+# Baseline files may declare metadata, suite/manip overrides, and runtime
+# requirements. Leave null to run without a baseline override.
+baseline_config:
+
+# Seed initialization source.
+# Choices: surface_sample, human.
+init_source: surface_sample
+
+# Legacy optional suite label. New runs should normally leave this null because
+# suite mode is selected by task.suite_config plus task.grasp_types, and the
+# suite label is inferred from suite_config.robot_name.
+grasp_suite:
+
+# Grasp types used in suite mode. Use all, a type id such as 1, a type name, or a Hydra list.
+# Examples: all, 1, 1_right_two, [1_right_two, 2_right_three].
+grasp_types:
+
+# Hydra-managed scene selection. This default is shared by all robot hands.
+scene_source:
+  type: explicit_scene_list
+  template_path: object/DGN_2k/scene_cfg/**/tabletop_ur10e/*.npy
+  use_object_scale_list: false
+  shuffle_before_slice: true
+  shuffle_seed: 123
+  # Optional override for suite_config.scene_source.min_object_height.
+  # Leave null here so each suite can define its own threshold.
+  min_object_height:
+
+# Hydra-managed human-prior overrides. Suite configs may define their own
+# human_prior defaults; values set here or on the CLI override suite defaults.
+human_prior:
+  root:
+  total_budget: 40
+  min_type_budget: 0
+  max_type_budget: 20
+  # Per-scene grasp types with scores below this threshold receive zero budget.
+  score_threshold: 0.0
+  # K_t budgets are snapped to this resolution for coarser batches.
+  budget_resolution: 4
+  # Choices: ceil, round. round uses half-up nearest-multiple rounding.
+  budget_rounding_mode: round
+  target_batch_grasps: 1000
+  max_parallel_world: 1000
+  replacement: true
+  seed: 123
+  right_hand_index: 0
+  jitter:
+    enabled: true
+
+# Print resolved scenes, budgets, and seed metadata without constructing the solver.
+dry_run: false
+
+# Number of scenes printed in dry-run mode.
+dry_run_count: 5
+
+# Optional output subfolder under cuRobo's output root.
+# When null, output follows <manip_cfg_file>/<exp_name>/graspdata.
+save_folder:
+
+# Save format used by SaveHelper. Choices: npy, none.
+save_mode: npy
+
+# Saved trajectory subset used when save_debug is enabled.
+# Common values: all, final, final_and_mid, init, select_<N>, pregrasp_and_grasp.
+save_data: final_and_mid
+
+# Optional solver result indices to save. Leave null to save all returned seeds.
+save_id:
+
+# Global override for all grasp types' seeder_cfg.obj_sample.hull_cache_mode.
+# object_hull favors speed by reusing one raw object hull across scales; use exact for the conservative path.
+obj_sample_hull_cache_mode: object_hull
+
+# Global override for all grasp types' seeder_cfg.obj_sample.contact_obb_cache_mode.
+# scaled caches exact OBBs per final scale. uniform_raw reuses raw OBB for positive uniform scales.
+contact_obb_cache_mode: uniform_raw
+
+# Global override for raw contact mesh surface points used by ultradexgrasp seeding.
+# auto skips this legacy point cloud unless the selected seeding mode requires it.
+contact_surface_points_mode: auto
+
+# Global override for seeder_cfg.obj_sample.contact_surface_sample_num.
+# 0 avoids generating unused raw contact surface points when contact_surface_points_mode permits it.
+contact_surface_sample_num:
+
+# Optional persistent Warp mesh cache entry limit across solver clear_cache() calls.
+# Set <= 0 to disable cross-batch mesh residency and keep the legacy lifecycle.
+warp_mesh_cache_max_entries: 4096
+
+# Optional approximate Warp mesh cache budget in MiB.
+# Set <= 0 to disable byte-based trimming while keeping any positive entry cap.
+warp_mesh_cache_max_mb: 1024
+
+# Save solver debug tensors and contact normal debug information.
+save_debug: false
+
+# Number of parallel scene environments for fixed-size batches.
+# Human-prior mode may adapt this using task.human_prior.target_batch_grasps
+# or suite_config.human_prior.target_batch_grasps.
+parallel_world: 40
+
+# Planning-only grouping before chunking scenes into solver batches.
+# object_scale clusters scenes with the same object and scale to improve process-local cache locality.
+batch_grouping: object_scale
+
+# Solver reuse scope during execution.
+# type keeps the existing behavior: one solver is reused for all batches of the same grasp type in a worker.
+# batch creates a fresh solver for every batch, which is slower but useful for reproducibility ablations.
+solver_reuse: batch
+
+# Show tqdm-style progress bars. Synthesis execution progress counts requested grasps:
+# completed_grasps = scene_count * per-scene budget K_t.
+progress: true
+
+# Print coarse per-stage runtime timing. This is intended for single-GPU
+# benchmark runs before changing solver or batching behavior.
+profile: false
+
+# Optional GPU ids used by the native synthesis planner.
+# Leave null to run in the current process / current CUDA_VISIBLE_DEVICES.
+# Use a single integer such as 2 to bind the current process to GPU 2.
+# Use a Hydra list such as [0, 1, 2, 3] only when multi-GPU workers are desired.
+gpus:
+
+# True skips existing grasp files. False recomputes existing files.
+skip: false
+
+# Experiment name used by synthesis output. Defaults to the top-level Hydra name.
+exp_name: ${name}
+
+# Optional inclusive start index for deterministic scene slicing.
+start:
+
+# Optional exclusive end index for deterministic scene slicing.
+end:

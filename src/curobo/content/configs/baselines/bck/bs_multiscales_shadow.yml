@@ -1,0 +1,25 @@
+name: bs_multiscales_shadow
+baseline: bs_multiscales
+robot_name: shadow
+description: Multi-scale Shadow baseline using all grasp types with per-anchor probability >= 0.1.
+source: HumanGraspData/doc/figures/Ours_object_scale_type_distribution.json
+
+requires:
+  task:
+    init_source: surface_sample
+    scene_source:
+      use_object_scale_list: true
+
+overrides:
+  suite:
+    grasp_types:
+      1_right_two:
+        object_scale_list: [0.02, 0.03, 0.04, 0.06, 0.08]
+      2_right_three:
+        object_scale_list: [0.02, 0.03, 0.04, 0.06, 0.08, 0.11, 0.13, 0.16]
+      3_right_full:
+        object_scale_list: [0.02, 0.03, 0.04, 0.06, 0.08, 0.11, 0.13, 0.16, 0.19, 0.23, 0.26, 0.30]
+      4_both_three:
+        object_scale_list: [0.06, 0.08, 0.11, 0.13]
+      5_both_full:
+        object_scale_list: [0.08, 0.11, 0.13, 0.16, 0.19, 0.23, 0.26, 0.30]
