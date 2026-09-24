@@ -32,8 +32,9 @@ python -m pip install viser
 ```
 
 Render additionally needs `pyrender`, `imageio`, `pyglet<2` and EGL. Prior viewing needs
-compatible public `manopth` (https://github.com/hassony2/manopth), `chumpy`, and separately
-licensed MANO models via `task.mano_root`; its real-data/dependency gate is pending.
+compatible `manopth`, `chumpy`, `opencv-python-headless==4.10.0.84`, and separately
+licensed MANO models via `task.mano_root`. The local validation environment uses
+`DexGrasp-TH/manopth` commit `dd83a157dccd4479edda7a0612db288df81dfeb7`.
 No USD/pxr package is required or offered.
 
 ```bash

@@ -133,3 +133,19 @@ def test_npy_none_and_skip_without_usd(tmp_path):
     for invalid in ("usd", "usd+npy", "invalid"):
         with pytest.raises(ValueError):
             SaveHelper("unused", str(tmp_path), "grasp", invalid, kin_model=model)
+
+
+def test_native_workers_propagate_controlled_failure(tmp_path, monkeypatch):
+    from src.task import synthesis
+    monkeypatch.setattr(synthesis, '_resolve_hydra_output_dir', lambda: str(tmp_path))
+    args = SimpleNamespace(progress=False, profile=False, solver_reuse='batch')
+    runtime = synthesis.SynthesisRuntime.__new__(synthesis.SynthesisRuntime)
+    runtime.args = args
+    batches = [{'estimated_cost': 1, 'scene_count': 1, 'type_name': str(i),
+                'manip_cfg_file': 'missing-controlled-test-config.yml', 'type_budget': 1}
+               for i in range(2)]
+    with pytest.raises(RuntimeError, match='Multi-GPU synthesis failed'):
+        runtime.run_multi_gpu({'batches': batches, 'types': []}, [2, 3])
+    logs = list((tmp_path/'gpu_logs').glob('gpu_*.log'))
+    assert len(logs) == 2
+    assert all('Traceback' in p.read_text() for p in logs)

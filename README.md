@@ -66,13 +66,15 @@ python example_grasp/main.py task=synthesis name=human_demo \
 ```
 
 Human prior reading, budget allocation, sample indices, transfer, jitter and provenance
-are included. Consuming an export requires no training checkout/checkpoint. Real-prior
-validation awaits separately versioned input data.
+are included. Consuming an export requires no training checkout/checkpoint. Local
+real-prior smoke results are recorded in the validation status; the producer commit
+for those historical exports remains unknown.
 
 Saving accepts `task.save_mode=npy` or `none`. `task.skip=true` skips existing NPY;
 `none` never skips based on files. `task.save_debug=true` records optimization stages;
 `task.save_data=final_and_mid` or `all` selects stages. Without debug saving results
-contain final poses. Removed initialization/export formats are rejected.
+contain the solver stage poses plus the derived squeeze pose; the standard configs
+currently produce three poses. Removed initialization/export formats are rejected.
 
 Results default to `src/curobo/content/assets/output/<manip path without .yml>/<name>/graspdata`.
 Set `HUGS_OUTPUT_ROOT` to place them outside the checkout. Fix seed, config, input

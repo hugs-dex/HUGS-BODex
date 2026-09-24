@@ -26,8 +26,9 @@ budget rounding, replacement, scene/type seed derivation and jitter are inherite
 
 Record the prior producer commit, input hashes, generating configuration and
 checkpoint. Consuming the export does not require the producer's training checkout.
-Actual prior validation is deferred until versioned inputs exist; synthetic data
-cannot substitute for that gate.
+Local validation used real exported priors for both suites and all five modes. The
+historical export's producer commit is unknown, so it cannot establish a versioned
+research comparison. Synthetic data cannot substitute for that provenance gate.
 
 ## Results to viewing/evaluation
 
@@ -39,7 +40,9 @@ not array length, to interpret coordinates. Human provenance retains scene file,
 IDs/names/budgets, selected sample indices, replacement mask, transfer file and
 `init_seed_config`. Only projection-specific metadata and USD format are removed.
 
-`save_debug=false` saves final poses; debug saving and `save_data` select stages.
+`save_debug=false` saves solver stage poses and the derived squeeze pose (three
+poses in the standard configs). Debug saving and `save_data` select optimization
+trajectory subsets; a final-only subset is distinct from this default.
 `none` emits no grasp NPY and cannot satisfy skip. Viewers display only saved stages.
 Set `HUGS_OUTPUT_ROOT` consistently for synthesis and viewing.
 
