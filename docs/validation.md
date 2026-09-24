@@ -15,17 +15,31 @@ suites and five modes in single and real two-GPU runs; the result checker valida
 produced four JPGs. The ordinary viewer returned HTTP 200 for both suites. The prior
 viewer loaded all ten suite/mode combinations with a real MANO export and returned
 HTTP 200; the input point-cloud path required the documented `HUGS_PATH_MAP` mapping.
+Synchronous geometry checks generated finite MANO, object, initial/final robot meshes
+and point clouds for all ten modes. These are automated checks; interactive browser
+visual inspection and the standalone asset-maintenance UIs have not been completed.
 
 Real human priors were also run for both suites in single and two-GPU modes (20 NPY
 records total). Budget, type ID/name, sample indices, replacement masks, transfer
 files, seed configurations and scene provenance passed the checks in
-`validation/2026-09-24/check_human_results.py`. The historical prior producer commit
+`../validation/2026-09-24/check_human_results.py`. The historical prior producer commit
 is unknown and is recorded as such; this is a functional smoke, not a versioned
 research comparison.
 
-The private fixed-input reference ran all ten surface-mode jobs successfully and its
-NPY schema/finite-pose checks passed. This one-scene bounded comparison does not claim
-quality, performance, or numerical equivalence. Failure logs, commands, hashes and
+The private fixed-input reference ran all ten surface jobs and all ten human jobs.
+Twenty candidate/reference pairs match in schema, joint order, world pose/scale and
+array shapes. Human budgets, sample indices and transfer file contents also match.
+The dual-full human initial poses differ by up to 0.000246 in the saved coordinate
+vector; final optimizer poses/errors also differ. No numerical acceptance threshold
+was established, so numerical equivalence remains unverified. Error summaries are
+recorded in `reference_contract_comparison.json`.
+
+The reference uses the fixed private Python source with the same dependency/extension
+environment and a separately targeted USD install. An explicit configuration overlay
+sets the four previously null dual-hand `sampling_mode` values to
+`random_xy_symmetric`, matching the candidate fix. This is not a clean-host install
+comparison or an unmodified-default performance benchmark. The candidate environment
+was made from an isolated Conda clone and its extensions rebuilt. Failure logs, commands, hashes and
 summaries are retained in `../validation/2026-09-24/` outside Git.
 
 Release gates remain: `utils_python` has no license file and needs owner terms;
