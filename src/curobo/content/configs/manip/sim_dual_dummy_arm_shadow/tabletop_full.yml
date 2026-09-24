@@ -16,7 +16,7 @@ gradient_file: "gradient_grasp_fc.yml"
 exp_name: 'debug'
 seed_num: 20
 seeder_cfg:
-  sampling_mode: # random / random_symmetric / random_xy_symmetric / ultradexgrasp
+  sampling_mode: random_xy_symmetric # random / random_symmetric / random_xy_symmetric / ultradexgrasp
   obj_sample:
     num: 1280 # 128
     inflate: 0.115
