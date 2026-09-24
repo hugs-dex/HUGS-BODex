@@ -7,7 +7,7 @@ Scene producers export NPY dictionaries and meshes/collision assets. Set
 `object/DGN_2k/scene_cfg/**/tabletop_ur10e/*.npy`. A dataset mount/symlink may occupy
 that location; datasets are excluded from Git/packages. The upstream asset URL is
 https://huggingface.co/datasets/JiayiChenPKU/BODex (`DGN_2k_processed.zip`). Archive
-version, digest, anonymous access and license remain required acquisition gates.
+layout is described in the [README](../README.md#prepare-data).
 
 Scene fields retain `scene_id`, `scene`, `task`, object identity and paths. Object
 `pose` is translation in metres followed by WXYZ quaternion in the scene frame;
