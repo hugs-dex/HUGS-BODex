@@ -246,19 +246,7 @@ an EGL device when needed. `[1.0]` renders the last saved pose and supports fina
 results. The alternate three-stage mode (`task.b_opt_process=false`) requires three
 saved poses.
 
-## Compatibility and developer tools
-
-The Hydra synthesis task is the recommended entry point for both initialization
-methods. The original launcher is also available:
-
-```bash
-bash scripts/run_all_grasps_multi_gpu.sh --hand leap_sp \
-  --exp-name surface_demo --parallel-env 1 --gpus 0 1 --start 0 --end 2
-```
-
-Before using it, set `world.template_path` in the selected manipulation configs.
-This launcher uses those paths, not Hydra scene overrides. It assigns ranges before
-skip checks; `-k` disables skip. Use Hydra for the full surface/human support matrix.
+## Developer tools
 
 Asset inspection tools live in `scripts/`: `vis_collision_spheres.py`,
 `vis_self_collision_pairs.py`, and `vis_hand_pose_transfer.py`.

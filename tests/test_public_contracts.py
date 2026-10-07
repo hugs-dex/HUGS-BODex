@@ -71,23 +71,6 @@ def test_legacy_worker_propagates_real_child_failure(tmp_path):
         os.chdir(cwd)
 
 
-def test_shell_leap_sp_and_failure(tmp_path):
-    stub = tmp_path / "python"
-    stub.write_text('#!/bin/sh\nprintf "%s\\n" "$*" >> "$CALL_LOG"\nexit "${CHILD_STATUS:-0}"\n')
-    stub.chmod(0o755)
-    log = tmp_path / "calls"
-    env = dict(os.environ, PATH=str(tmp_path) + os.pathsep + os.environ["PATH"], CALL_LOG=str(log))
-    command = ["bash", str(ROOT / "scripts/run_all_grasps_multi_gpu.sh"), "--hand", "leap_sp", "--gpus", "2", "3", "-k"]
-    subprocess.run(command, env=env, check=True, capture_output=True)
-    lines = log.read_text().splitlines()
-    assert len(lines) == 5
-    assert all("leap_sp/" in line and "-k" in line for line in lines)
-    log.write_text("")
-    result = subprocess.run(command, env=dict(env, CHILD_STATUS="23"), capture_output=True)
-    assert result.returncode != 0
-    assert len(log.read_text().splitlines()) == 1
-
-
 def test_legacy_parent_propagates_workers_and_keeps_logs(tmp_path):
     import yaml
     scripts = tmp_path / "example_grasp"
