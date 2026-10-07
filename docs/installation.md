@@ -28,13 +28,20 @@ git submodule update --init --recursive
 
 export CUDA_HOME="$(dirname "$(dirname "$(command -v nvcc)")")"
 export MAX_JOBS=4
-uv sync --extra render --extra human
+uv pip install pip setuptools wheel
+uv pip install --no-deps --no-build-isolation chumpy==0.70
+uv sync --frozen --extra render --extra human
 ```
 
 `uv sync` installs the dependencies recorded in `pyproject.toml` and `uv.lock`,
 including the local `pytorch_kinematics` and `utils_python` submodules plus the
 human-prior visualization packages. The virtual environment is stored in
 `HUGS-BODex/.venv`; reactivate it in each new shell with `source .venv/bin/activate`.
+
+chumpy 0.70 imports pip during its build without declaring it as a build dependency.
+The separate installation above supplies the build tools and disables isolation only
+for chumpy. `--no-deps` leaves its runtime dependencies to the locked `uv sync`;
+chumpy remains part of the `human` extra. Repeat these steps when recreating `.venv`.
 
 Eigen 3.4 headers are installed by `cmeel-eigen` inside `.venv` during `uv sync`.
 No system Eigen installation or `sudo` is needed. The Coal wrapper build finds them
@@ -58,7 +65,7 @@ The `--no-deps` flag is intentional: the cmeel metadata currently requires NumPy
 while this project and `pytorch_kinematics` use NumPy 1.26.4. The required cmeel
 runtime packages are pinned explicitly above.
 
-For later environment updates, use `uv sync --inexact --extra render --extra human`
+For later synchronization, use `uv sync --frozen --inexact --extra render --extra human`
 to preserve the separately installed Coal packages, wrapper, and `manopth`.
 
 ```bash

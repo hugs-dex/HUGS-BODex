@@ -28,7 +28,9 @@ uv venv --python 3.10 .venv
 source .venv/bin/activate
 export CUDA_HOME="$(dirname "$(dirname "$(command -v nvcc)")")"
 export MAX_JOBS=4
-uv sync --extra render --extra human
+uv pip install pip setuptools wheel
+uv pip install --no-deps --no-build-isolation chumpy==0.70
+uv sync --frozen --extra render --extra human
 uv pip install --no-deps \
   coal==3.0.1 cmeel==0.61.0 cmeel-assimp==5.4.3.1 \
   cmeel-boost==1.87.0.1 cmeel-octomap==1.10.0 cmeel-qhull==8.0.2.1 \
@@ -37,7 +39,8 @@ uv pip install --no-deps \
 ```
 
 Keep `.venv` active for builds and subsequent commands. The separate Coal install
-and wrapper build are required. See the [installation guide](docs/installation.md)
+and wrapper build are required. Install chumpy separately because its build needs pip.
+See the [installation guide](docs/installation.md)
 for the tested stack, dependency pins, environment updates, and optional MANO viewer.
 
 ## Prepare Data
