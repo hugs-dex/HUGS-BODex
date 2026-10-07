@@ -3,11 +3,7 @@
 import ast
 from collections import defaultdict
 import importlib.util
-import multiprocessing
-import os
 from pathlib import Path
-import subprocess
-import sys
 from types import SimpleNamespace
 
 import numpy as np
@@ -26,22 +22,17 @@ def load_definitions(path, names, namespace=None):
     return ns
 
 
-def test_removed_options_and_legacy_aliases():
-    for path, constant in [("src/task/synthesis.py", "INIT_SOURCE_CHOICES"),
-                           ("example_grasp/plan_batch_env_human_prior.py", "INIT_SOURCE_ALIASES")]:
-        tree = ast.parse((ROOT / path).read_text())
-        value = next(ast.literal_eval(n.value) for n in tree.body if isinstance(n, ast.Assign) and any(isinstance(t, ast.Name) and t.id == constant for t in n.targets))
-        fn = load_definitions(path, {"canonical_init_source"}, {constant: value})["canonical_init_source"]
-        for mode in ("surface_sample", "human"):
-            assert fn(mode) == mode
+def test_synthesis_init_sources():
+    path = "src/task/synthesis.py"
+    constant = "INIT_SOURCE_CHOICES"
+    tree = ast.parse((ROOT / path).read_text())
+    value = next(ast.literal_eval(n.value) for n in tree.body if isinstance(n, ast.Assign) and any(isinstance(t, ast.Name) and t.id == constant for t in n.targets))
+    fn = load_definitions(path, {"canonical_init_source"}, {constant: value})["canonical_init_source"]
+    for mode in ("surface_sample", "human"):
+        assert fn(mode) == mode
+    for mode in ("human_surface", "human_prior", "heuristic"):
         with pytest.raises(ValueError):
-            fn("human_surface")
-        if constant == "INIT_SOURCE_ALIASES":
-            assert fn("heuristic") == "surface_sample"
-            assert fn("human_prior") == "human"
-        else:
-            with pytest.raises(ValueError):
-                fn("human_prior")
+            fn(mode)
 
 
 def test_assignment_is_unique_and_empty_safe():
@@ -54,40 +45,43 @@ def test_assignment_is_unique_and_empty_safe():
     assert all(result.values())
 
 
-def test_legacy_worker_propagates_real_child_failure(tmp_path):
-    script = tmp_path / "example_grasp"
-    script.mkdir()
-    (script / "plan_batch_env.py").write_text("print('controlled child failure', flush=True)\nraise SystemExit(23)\n")
-    ns = load_definitions("example_grasp/multi_gpu.py", {"worker"}, {"os": os, "sys": sys, "subprocess": subprocess})
-    cwd = os.getcwd()
-    os.chdir(tmp_path)
-    try:
-        process = multiprocessing.get_context("fork").Process(target=ns["worker"], args=(2, "grasp", "unused", "unused", str(tmp_path / "worker.log"), "npy", 1, "final", None, False, True))
-        process.start()
-        process.join(15)
-        assert process.exitcode == 23
-        assert "controlled child failure" in (tmp_path / "worker.log").read_text()
-    finally:
-        os.chdir(cwd)
+@pytest.mark.parametrize("save_data, horizons", [
+    ("all", [0, 1, 2, 3, 4]),
+    ("init", [0]),
+    ("final", [4]),
+    ("select_3", [0, 2, 4]),
+    ("pregrasp_and_grasp", [1, 4]),
+])
+@pytest.mark.parametrize("save_id", [None, [1]])
+def test_native_debug_trajectory_selection(save_data, horizons, save_id):
+    import torch
 
+    ns = load_definitions("src/task/synthesis.py", {"SynthesisRuntime"}, {"torch": torch})
+    runtime = ns["SynthesisRuntime"].__new__(ns["SynthesisRuntime"])
+    runtime.args = SimpleNamespace(save_data=save_data, save_id=save_id, save_debug=True)
+    poses = torch.arange(2 * 5 * 4).reshape(2, 5, 4)
+    hand_points = torch.arange(2 * 5 * 2 * 3).reshape(2, 5, 2, 3).float()
+    object_points = torch.arange(2 * 5 * 3 * 3).reshape(2, 5, 3, 3).float()
+    stages = torch.tensor([[0, 0, 1, 1, 1], [0, 0, 1, 1, 1]])
+    expected = {"hp": hand_points, "grad": hand_points + 1,
+                "op": object_points, "debug_posi": object_points + 2,
+                "debug_normal": object_points + 3, "contact_stage": stages}
+    solver_debug = {key: [list(value.unbind(dim=1))] for key, value in expected.items()}
+    solver_debug["steps"] = [[poses[:, :2], poses[:, 2:]]]
+    result = SimpleNamespace(debug_info={"solver": solver_debug})
+    config = {"grasp_contact_strategy": {"pregrasp_stage": 0, "grasp_stage": 1}}
 
-def test_legacy_parent_propagates_workers_and_keeps_logs(tmp_path):
-    import yaml
-    scripts = tmp_path / "example_grasp"
-    scripts.mkdir()
-    (scripts / "plan_batch_env.py").write_text("print('intentional failure', flush=True)\nraise SystemExit(19)\n")
-    for i in range(2):
-        (tmp_path / f"scene{i}.npy").touch()
-    config = tmp_path / "manip.yml"
-    config.write_text(yaml.safe_dump({"world": {"type": "scene_cfg", "template_path": str(tmp_path / "*.npy"), "start": None, "end": None}, "exp_name": "failure"}))
-    result = subprocess.run([sys.executable, str(ROOT / "example_grasp/multi_gpu.py"),
-                             "-c", str(config), "-f", str(tmp_path / "results"),
-                             "-g", "2", "3"], cwd=tmp_path, capture_output=True, text=True, timeout=30)
-    assert result.returncode != 0
-    assert "GPU workers failed" in result.stderr
-    logs = list((tmp_path / "results/runinfo").glob("*_output.txt"))
-    assert len(logs) == 2
-    assert all("intentional failure" in p.read_text() for p in logs)
+    selected_poses, debug = runtime.process_grasp_result(result, config)
+
+    indices = [0, 1] if save_id is None else save_id
+    torch.testing.assert_close(selected_poses, poses[indices][:, horizons])
+    for key, value in expected.items():
+        selected = value[indices][:, horizons].reshape((-1,) + value.shape[2:])
+        torch.testing.assert_close(debug[key], selected * 100 if key == "grad" else selected)
+    world_info = {"world_model": [object()]}
+    runtime.attach_result_to_world_info(world_info, result, None, config)
+    torch.testing.assert_close(world_info["robot_pose"], selected_poses.unsqueeze(0))
+    assert set(world_info["debug_info"]) == set(expected)
 
 
 def test_artifact_relocation_is_explicit(monkeypatch):

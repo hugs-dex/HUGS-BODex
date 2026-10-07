@@ -93,6 +93,11 @@ Manipulation paths are relative to `src/curobo/content/configs/manip/`.
 
 ## Grasp synthesis
 
+The only supported synthesis entrypoint is `python example_grasp/main.py task=synthesis`.
+It handles surface and human initialization, debug output, and single- or multi-GPU
+execution. The legacy batch scripts and their motion-generation workflow have been
+removed; the underlying cuRobo MotionGen library remains available.
+
 Examples use `surface_demo` and `human_demo`. Use a new name for each experiment.
 
 ### Suite and baseline selection
