@@ -98,7 +98,8 @@ It handles surface and human initialization, debug output, and single- or multi-
 execution. The legacy batch scripts and their motion-generation workflow have been
 removed; the underlying cuRobo MotionGen library remains available.
 
-Examples use `surface_demo` and `human_demo`. Use a new name for each experiment.
+Full-run examples use `surface_full` and `human_full`, separate from the README's
+quick-start experiments. Use a new name for each experiment.
 
 ### Suite and baseline selection
 
@@ -124,30 +125,47 @@ Suite filenames are relative to `src/curobo/content/configs/manip/`; baseline
 filenames are relative to `src/curobo/content/configs/baselines/`. Include `.yml`.
 Use `task.baseline_config=null` to run without baseline overrides.
 
-### Surface initialization
+### Full dataset synthesis
+
+Prepare the dataset and height table as described [above](#prepare-data), and keep
+the installed environment active. The commands below process all scenes matching
+`$HUGS_OBJECT_ROOT/scene_cfg/**/tabletop_ur10e/*.npy`, with no `start`/`end` slice
+limit. Each grasp mode still applies its scale and height filters; human mode also
+applies prior budgets. The scene glob determines the input collection: synthesis
+does not automatically read `valid_split` files to select a split. To run a subset,
+point the glob at the intended scene collection.
+
+Both commands select GPUs 0 and 1. Change `'task.gpus=[0,1]'` to the available
+physical GPU IDs, or use `'task.gpus=[0]'` for one GPU. See [Multiple GPUs](#multiple-gpus).
+Append `task.dry_run=true` to inspect a full plan before starting synthesis.
+
+#### Surface initialization
 
 Generate grasps for all eligible scenes and all five grasp types with Shadow Hand:
 
 ```bash
 python example_grasp/main.py task=synthesis \
-  name=surface_demo \
+  name=surface_full \
   task.suite_config=sim_shadow.yml \
   task.baseline_config=heur_multi_shadow.yml \
+  task.init_source=surface_sample \
   task.grasp_types=all \
+  task.start=null task.end=null \
   task.scene_source.use_object_scale_list=true \
   'task.gpus=[0,1]' \
   "task.scene_source.template_path=$HUGS_OBJECT_ROOT/scene_cfg/**/tabletop_ur10e/*.npy"
 ```
 
 The command runs actual synthesis with surface initialization and no scene-count
-limit. All other settings use their defaults. For a smaller validation run, append
-`task.end=1000`: this randomly selects 1,000 scenes (using the default shuffle seed
-123) before applying scale and height filters. The actual number used can be
+limit. All other settings use their defaults. For a smaller validation run, replace
+`task.end=null` with `task.end=1000`: this randomly selects up to 1,000 scenes
+(using the default shuffle seed 123) before applying scale and height filters.
+The actual number used can be
 smaller, including zero for a mode with no eligible scenes. For Leap-SP, change both
 `task.suite_config=sim_leap_sp.yml` and
 `task.baseline_config=heur_multi_leap_sp.yml`.
 
-### Human-prior initialization
+#### Human-prior initialization
 
 After [exporting priors with DexLearn](https://github.com/hugs-dex/HUGS-DexLearn#human-prior),
 set the exported prior directory and run synthesis with Shadow Hand. The path below
@@ -157,17 +175,23 @@ assumes sibling checkouts and the default DexLearn output directory:
 export HUGS_PRIOR_ROOT="$(realpath ../HUGS-DexLearn/output/humanMulti_humanMultiHierar_human_prior_full/obj_human_prior/step_007500_000100/DGN_2k/shadow_hand)"
 
 python example_grasp/main.py task=synthesis \
-  name=human_demo \
+  name=human_full \
   task.suite_config=sim_shadow.yml \
   task.baseline_config=human_shadow.yml \
   task.grasp_types=all \
+  task.start=null task.end=null \
   task.scene_source.use_object_scale_list=false \
   task.init_source=human "task.human_prior.root=$HUGS_PRIOR_ROOT" \
   'task.gpus=[0,1]' \
   "task.scene_source.template_path=$HUGS_OBJECT_ROOT/scene_cfg/**/tabletop_ur10e/*.npy"
 ```
 
-For a smaller validation run, append `task.end=1000`.
+The prior export must cover every eligible scene ID and match the target hand
+size; a missing scene prior raises an error. Modes assigned zero prior budget are
+skipped, so a full run need not produce records for every scene/mode combination.
+For Leap-SP, use `task.suite_config=sim_leap_sp.yml`,
+`task.baseline_config=human_leap_sp.yml`, and the matching Leap-SP prior directory.
+For a smaller validation run, replace `task.end=null` with `task.end=1000`.
 
 ### Multiple GPUs
 
@@ -190,6 +214,9 @@ Use a new `name` for a separate experiment. `task.skip=true` resumes by skipping
 existing NPY files; with `task.skip=false`, an existing experiment may prompt for
 cleanup. Saving accepts `task.save_mode=npy` (default) or `none`.
 
+To resume a full run, repeat its synthesis command with the same `name`, scene
+glob, suite, baseline, and prior settings, adding `task.skip=true`.
+
 The default saves solver stage poses and a derived squeeze pose (three poses in the
 standard configs). Set `task.save_debug=true` to retain optimization trajectories,
 and choose the saved subset with `task.save_data=final_and_mid` or `all`.
@@ -210,7 +237,7 @@ The viewers use the default output directory shown above.
 ### Browse grasps
 
 ```bash
-python example_grasp/main.py task=visualize name=surface_demo \
+python example_grasp/main.py task=visualize name=surface_full \
   task.suite_config=sim_shadow.yml task.grasp_types=all \
   task.port=8081
 ```
@@ -221,7 +248,7 @@ port over SSH. Match `name` and `task.suite_config` to the synthesis run.
 ### Inspect human prior → initialization → result
 
 ```bash
-python example_grasp/main.py task=visualize_prior_path name=human_demo device=cpu \
+python example_grasp/main.py task=visualize_prior_path name=human_full device=cpu \
   task.suite_config=sim_shadow.yml task.grasp_types=all \
   task.mano_root=/path/to/mano/models task.host=127.0.0.1 task.port=8082 \
   task.show_text=true task.show_caption=true 'task.next_button_label=Next Batch' \
@@ -241,7 +268,7 @@ Rendering uses pyrender and requires EGL/OpenGL libraries and a working graphics
 driver. Select one manipulation configuration from the table above:
 
 ```bash
-PYOPENGL_PLATFORM=egl python example_grasp/main.py task=render name=surface_demo \
+PYOPENGL_PLATFORM=egl python example_grasp/main.py task=render name=surface_full \
   manip_cfg_file=sim_shadow/tabletop_full.yml device=cpu n_worker=1 \
   'task.sample_lst=[0]' task.b_opt_process=true 'task.opt_progress=[1.0]'
 ```

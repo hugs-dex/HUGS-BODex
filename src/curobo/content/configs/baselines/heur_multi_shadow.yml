@@ -1,5 +1,5 @@
-name: single_scale_shadow
-baseline: single_scale
+name: heur_multi_shadow
+baseline: multi_scale
 robot_name: shadow
 description:
 
@@ -13,15 +13,16 @@ overrides:
   suite:
     grasp_types:
       1_right_two:
-        object_scale_list: [0.02]
+        object_scale_list: [0.02, 0.03, 0.04]
       2_right_three:
-        object_scale_list: [0.03, 0.04, 0.06]
+        object_scale_list: [0.02, 0.03, 0.04, 0.06, 0.08]
       3_right_full:
-        object_scale_list: [0.08, 0.11]
+        object_scale_list: [0.06, 0.08, 0.11, 0.13, 0.16, 0.19, 0.23]
       4_both_three:
-        object_scale_list: []
+        object_scale_list: [0.08, 0.11]
       5_both_full:
-        object_scale_list: [0.13, 0.16, 0.19, 0.23, 0.26, 0.30]
+        object_scale_list: [0.11, 0.13, 0.16, 0.19, 0.23, 0.26, 0.30]
+
   manip:
     sim_dual_dummy_arm_shadow/tabletop_three.yml:
       seeder_cfg:

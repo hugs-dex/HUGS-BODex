@@ -22,8 +22,6 @@ from visualizer import Visualizer
 DEFAULT_ROBOT_FILES = {
     "shadow": "src/curobo/content/configs/robot/right_shadow_hand_sim.yml",
     "dual_dummy_arm_shadow": "src/curobo/content/configs/robot/dual_dummy_arm_shadow.yml",
-    "leap": "src/curobo/content/configs/robot/leap_hand.yml",
-    "dual_dummy_arm_leap": "src/curobo/content/configs/robot/dual_dummy_arm_leap.yml",
     "leap_sp": "src/curobo/content/configs/robot/leap_sp.yml",
     "dual_dummy_arm_leap_sp": "src/curobo/content/configs/robot/dual_dummy_arm_leap_sp.yml",
 }
@@ -249,7 +247,7 @@ def parse_args(argv=None):
     parser.add_argument("--port", type=int, default=8081, help="Port used by the viser server.")
     parser.add_argument(
         "--hand-name",
-        default="leap",
+        default="leap_sp",
         choices=sorted(DEFAULT_ROBOT_FILES),
         help="Hand preset name used for the default robot config.",
     )

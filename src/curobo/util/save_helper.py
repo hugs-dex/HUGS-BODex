@@ -14,6 +14,7 @@ from curobo.util_file import (
     load_yaml,
 )
 from curobo.util.logger import log_warn
+from curobo.util.artifact_path import portable_artifact_metadata
 
 
 def dict_piece(d: Dict, piece_id: int, piece_num: int):
@@ -111,6 +112,6 @@ class SaveHelper:
         save_dict["joint_names"] = self.kin_model.joint_names
         save_path = os.path.join(self.save_folder, file_prefix + self.task_name + ".npy")
         os.makedirs(os.path.dirname(save_path), exist_ok=True)
-        np.save(save_path, save_dict)
+        np.save(save_path, portable_artifact_metadata(save_dict))
         log_warn(f"Save results to {save_path}")
         return save_path

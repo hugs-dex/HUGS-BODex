@@ -24,7 +24,7 @@ from typing import Dict, Iterable, List, Optional, Sequence, Tuple
 
 
 DEFAULT_DATASET = "DGN_5k"
-DEFAULT_ENV_NAME = "AnyScaleGraspDataset"
+DEFAULT_ENV_NAME = "HUGS_DATASET_ROOT"
 DEFAULT_SCENE_TYPE = "tabletop_ur10e"
 DEFAULT_SCALE_DENOMINATOR = 100.0
 DEFAULT_TIMEOUT_SEC = 120.0
@@ -77,17 +77,17 @@ def parse_scan_args(argv: Sequence[str]) -> argparse.Namespace:
         "--asset-root",
         type=Path,
         default=None,
-        help="Path to the dataset object asset folder. Defaults to ${AnyScaleGraspDataset}/object/DGN_5k.",
+        help="Path to the dataset object asset folder. Defaults to ${HUGS_DATASET_ROOT}/object/DGN_5k.",
     )
     parser.add_argument(
         "--dataset",
         default=DEFAULT_DATASET,
-        help="Dataset folder under ${AnyScaleGraspDataset}/object when --asset-root is not set.",
+        help="Dataset folder under ${HUGS_DATASET_ROOT}/object when --asset-root is not set.",
     )
     parser.add_argument(
         "--dataset-root-env",
         default=DEFAULT_ENV_NAME,
-        help="Environment variable that points to the AnyScaleGrasp dataset root.",
+        help="Environment variable that points to the HUGS dataset root.",
     )
     parser.add_argument(
         "--scene-type",

@@ -7,18 +7,121 @@
 # license agreement from NVIDIA CORPORATION is strictly prohibited.
 
 [build-system]
-requires = ["setuptools>=45", "setuptools_scm>=6.2", "wheel", "torch"]
+requires = ["setuptools>=64", "wheel", "torch==2.2.2", "pybind11", "ninja"]
 
 build-backend = "setuptools.build_meta"
 
 
-# See the `setuptools_scm` documentation for the description of the schemes used below.
-# https://pypi.org/project/setuptools-scm/
-# NOTE: If these values are updated, they need to be also updated in `__init__.py`.
-[tool.setuptools_scm]
-version_scheme = "no-guess-dev"
-local_scheme = "dirty-tag"
-fallback_version = "0.1.0.dev0"
+[project]
+name = "nvidia_curobo"
+version = "0.1.0.dev0"
+description = "GPU robot motion toolkit containing CUDA-accelerated kinematics, IK, MPC, global motion planning, and optimization solvers."
+readme = { file = "README.md", content-type = "text/markdown" }
+requires-python = ">=3.10,<3.11"
+license = { file = "LICENSE" }
+authors = [{ name = "NVIDIA Seattle Robotics Lab" }]
+classifiers = [
+    "License :: Other/Proprietary License",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Scientific/Engineering :: Robotics",
+]
+dependencies = [
+    # Eigen headers for the Coal OpenMP wrapper, installed inside .venv.
+    "cmeel-eigen==3.4.0.2",
+    "hydra-core",
+    "importlib_resources",
+    "networkx",
+    "numpy==1.26.4",
+    "numpy-quaternion",
+    "pybind11",
+    "pyyaml",
+    "scikit-image",
+    "scipy>=1.7.0",
+    "setuptools_scm>=6.2",
+    "torch==2.2.2",
+    "torch-scatter==2.1.2+pt22cu121",
+    "tqdm",
+    "transforms3d",
+    "trimesh",
+    "viser",
+    "warp-lang>=0.9.0",
+    "wheel",
+    "yourdfpy>=0.0.53",
+    "pytorch-kinematics",
+    "mingrui-utils-python",
+]
+
+[project.optional-dependencies]
+render = [
+    "imageio",
+    "pyglet<2",
+    "pyrender",
+]
+human = [
+    "chumpy==0.70",
+    "opencv-python-headless==4.10.0.84",
+]
+dev = [
+    "black",
+    "flake8",
+    "flake8-docstrings",
+    "flake8-isort",
+    "ipdb",
+    "ipython",
+    "pytest>6.2.5",
+    "pytest-cov",
+]
+ci = [
+    "anybadge",
+    "black",
+    "build",
+    "furo",
+    "graphviz>=0.20.1",
+    "pytest>6.2.5",
+    "pytest-cov",
+    "sphinx",
+    "sphinx-copybutton",
+    "sphinx_rtd_theme",
+    "twine",
+]
+doc = [
+    "furo",
+    "graphviz>=0.20.1",
+    "sphinx",
+    "sphinx-copybutton",
+    "sphinx_rtd_theme",
+]
+isaacsim = [
+    "ninja",
+    "tomli",
+    "wheel",
+]
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+exclude = ["tests", "*.build", "*.build.*"]
+
+
+[[tool.uv.index]]
+name = "pytorch-cu121"
+url = "https://download.pytorch.org/whl/cu121"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu121" }
+pytorch-kinematics = { path = "third_party/pytorch_kinematics", editable = true }
+mingrui-utils-python = { path = "third_party/utils_python", editable = true }
+
+[tool.uv]
+find-links = ["https://data.pyg.org/whl/torch-2.2.0+cu121.html"]
+
 
 [tool.isort]
 # see https://github.com/PyCQA/isort#multi-line-output-modes

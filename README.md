@@ -5,6 +5,7 @@
 <p align="center">
   <a href="https://github.com/hugs-dex/HUGS-Main">HUGS Project</a> ·
   <a href="#quick-start">Quick Start</a> ·
+  <a href="#full-dataset-synthesis">Full Dataset Synthesis</a> ·
   <a href="#documentation">Documentation</a>
 </p>
 
@@ -55,7 +56,7 @@ python scripts/filter_tabletop_scene_cfg_by_height.py --datasets DGN_2k
 
 The height table is required by the default suites and is not included in the
 archive. The command writes into the object collection; see [data preparation](docs/workflows.md#prepare-data)
-for extraction details and a local-cache option for read-only datasets.
+for extraction details and the local-cache option for read-only datasets.
 
 ## Quick Start
 
@@ -76,7 +77,7 @@ python example_grasp/main.py task=visualize name=surface_demo \
 Open `http://127.0.0.1:8081`. Filtered scenes and saved record counts may be smaller;
 if the selection is empty, increase the limit or select eligible scenes.
 Append `task.dry_run=true` to the synthesis command to inspect the plan without
-saving grasps. Remove `task.end=10` for a full run.
+saving grasps. See [Full Dataset Synthesis](#full-dataset-synthesis) for full runs.
 
 For Leap-SP, change the suite and baseline together to `sim_leap_sp.yml` and
 `heur_multi_leap_sp.yml`. See [baseline and GPU options](docs/workflows.md#grasp-synthesis).
@@ -96,11 +97,28 @@ python example_grasp/main.py task=synthesis name=human_demo \
   "task.human_prior.root=$HUGS_PRIOR_ROOT" \
   task.grasp_types=all task.end=10 'task.gpus=[0]' \
   "task.scene_source.template_path=$HUGS_OBJECT_ROOT/scene_cfg/**/tabletop_ur10e/*.npy"
+
+python example_grasp/main.py task=visualize name=human_demo \
+  task.suite_config=sim_shadow.yml task.grasp_types=all task.port=8081
 ```
 
 The export must match the scene IDs and target hand size. Consuming priors requires
 neither the training checkpoint nor MANO; MANO is needed by the optional human-hand
-viewer. Browse this run with the Quick Start viewer command using `name=human_demo`.
+viewer. Open `http://127.0.0.1:8081` to browse the synthesized grasps.
+
+## Full Dataset Synthesis
+
+After preparing the data above, use the complete launch commands in the workflow
+guide for [surface initialization](docs/workflows.md#surface-initialization) or
+[human-prior initialization](docs/workflows.md#human-prior-initialization).
+These runs use `surface_full` and `human_full`, all five grasp modes, and no scene
+slice limit. GPU selection, Leap-SP substitutions, and resuming are documented
+alongside the commands.
+
+Full runs process all eligible scenes matching the specified glob, subject to
+scale and height filters and, for human initialization, prior budgets. Synthesis
+does not automatically select a `valid_split`; human priors must cover the
+eligible scene IDs.
 
 ## Outputs and Evaluation
 

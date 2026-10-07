@@ -1,6 +1,6 @@
-name: single_type_leap_sp
+name: heur_fix_shadow
 baseline: single_type
-robot_name: leap_sp
+robot_name: shadow
 description:
 
 requires:

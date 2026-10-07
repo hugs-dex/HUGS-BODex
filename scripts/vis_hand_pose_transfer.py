@@ -25,8 +25,6 @@ from visualizer import Visualizer
 DEFAULT_ROBOT_FILES = {
     "shadow": "src/curobo/content/configs/robot/right_shadow_hand_sim.yml",
     "dual_dummy_arm_shadow": "src/curobo/content/configs/robot/dual_dummy_arm_shadow.yml",
-    "leap": "src/curobo/content/configs/robot/leap_hand.yml",
-    "dual_dummy_arm_leap": "src/curobo/content/configs/robot/dual_dummy_arm_leap.yml",
     "leap_sp": "src/curobo/content/configs/robot/leap_sp.yml",
     "dual_dummy_arm_leap_sp": "src/curobo/content/configs/robot/dual_dummy_arm_leap_sp.yml",
 }
@@ -34,8 +32,6 @@ DEFAULT_ROBOT_FILES = {
 DEFAULT_HUMAN_TRANSFER_FILES = {
     "shadow": "src/curobo/content/configs/robot/hand_pose_human_transfer/right_shadow_hand.yml",
     "dual_dummy_arm_shadow": "src/curobo/content/configs/robot/hand_pose_human_transfer/dual_dummy_arm_shadow.yaml",
-    "leap": "src/curobo/content/configs/robot/hand_pose_human_transfer/leap_hand.yml",
-    "dual_dummy_arm_leap": "src/curobo/content/configs/robot/hand_pose_human_transfer/dual_dummy_arm_leap.yml",
     "leap_sp": "src/curobo/content/configs/robot/hand_pose_human_transfer/leap_sp.yml",
     "dual_dummy_arm_leap_sp": "src/curobo/content/configs/robot/hand_pose_human_transfer/dual_dummy_arm_leap_sp.yml",
 }

@@ -2,7 +2,7 @@
 """Save posed and scaled tabletop object heights for DGN scene configs.
 
 The script reads tabletop scene config files from
-`${AnyScaleGraspDataset}/object/{DGN_2k,DGN_5k}/scene_cfg`, computes the
+`${HUGS_DATASET_ROOT}/object/{DGN_2k,DGN_5k}/scene_cfg`, computes the
 z-height of each posed and scaled mesh from OBJ vertices, and writes the
 results back into the corresponding object asset folder.
 """
@@ -20,7 +20,7 @@ import numpy as np
 
 
 DEFAULT_DATASETS = ("DGN_2k", "DGN_5k")
-DEFAULT_ENV_NAME = "AnyScaleGraspDataset"
+DEFAULT_ENV_NAME = "HUGS_DATASET_ROOT"
 DEFAULT_OUTPUT_STEM = "tabletop_scene_object_heights"
 
 
@@ -43,12 +43,12 @@ def parse_args() -> argparse.Namespace:
         "--datasets",
         nargs="+",
         default=list(DEFAULT_DATASETS),
-        help="Dataset folders under ${AnyScaleGraspDataset}/object to process.",
+        help="Dataset folders under ${HUGS_DATASET_ROOT}/object to process.",
     )
     parser.add_argument(
         "--dataset-root-env",
         default=DEFAULT_ENV_NAME,
-        help="Environment variable that points to the AnyScaleGrasp dataset root.",
+        help="Environment variable that points to the HUGS dataset root.",
     )
     parser.add_argument(
         "--scene-type",
@@ -92,14 +92,14 @@ def dataset_root_from_env(dataset_name: str, env_name: str) -> Path:
 
     Args:
         dataset_name: Dataset folder name, such as DGN_2k or DGN_5k.
-        env_name: Environment variable name that stores the AnyScaleGrasp dataset root.
+        env_name: Environment variable name that stores the HUGS dataset root.
 
     Returns:
         Path: Absolute path to the selected object asset folder.
     """
     dataset_root = os.environ.get(env_name)
     if not dataset_root:
-        raise EnvironmentError(f"Please set {env_name} to the AnyScaleGrasp dataset root.")
+        raise EnvironmentError(f"Please set {env_name} to the HUGS dataset root.")
     return Path(dataset_root).expanduser().resolve() / "object" / dataset_name
 
 

@@ -1,4 +1,4 @@
-name: multi_scale_leap_sp
+name: heur_multi_leap_sp
 baseline: multi_scale
 robot_name: leap_sp
 description:

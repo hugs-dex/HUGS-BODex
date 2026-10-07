@@ -126,3 +126,20 @@ def test_native_workers_propagate_controlled_failure(tmp_path, monkeypatch):
     logs = list((tmp_path/'gpu_logs').glob('gpu_*.log'))
     assert len(logs) == 2
     assert all('Traceback' in p.read_text() for p in logs)
+
+
+def test_dataset_metadata_relocation(tmp_path, monkeypatch):
+    from curobo.util.artifact_path import portable_artifact_metadata, resolve_artifact_path
+    old_root, new_root = tmp_path / 'dataset-a', tmp_path / 'dataset-b'
+    monkeypatch.setenv('HUGS_DATASET_ROOT', str(old_root))
+    monkeypatch.delenv('HUGS_PATH_MAP', raising=False)
+    record = {'scene_path': np.array([str(old_root / 'object/DGN_2k/scene_cfg/a.npy')]),
+              'world_cfg': {'mesh': {'file_path': str(old_root / 'object/DGN_2k/mesh.obj')}},
+              'robot_pose': np.arange(7)}
+    saved = portable_artifact_metadata(record)
+    assert saved['path_root'] == 'HUGS_DATASET_ROOT'
+    assert saved['scene_path'].tolist() == ['object/DGN_2k/scene_cfg/a.npy']
+    assert saved['robot_pose'] is record['robot_pose']
+    monkeypatch.setenv('HUGS_DATASET_ROOT', str(new_root))
+    assert resolve_artifact_path(saved['scene_path'][0]) == str(new_root / saved['scene_path'][0])
+    assert resolve_artifact_path(saved['world_cfg']['mesh']['file_path']) == str(new_root / 'object/DGN_2k/mesh.obj')

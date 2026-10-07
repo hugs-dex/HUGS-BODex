@@ -368,7 +368,7 @@ def _create_mano_layers(device: str, mano_root: str):
     """
     # chumpy, which is used by manopth to load MANO pickle files, still imports
     # deprecated NumPy scalar aliases. Define them before importing manopth so
-    # the viewer can run in modern conda environments such as anyscalelearn.
+    # the viewer can run in the project environment.
     for alias, scalar_type in (
         ("bool", np.bool_),
         ("int", np.int_),
